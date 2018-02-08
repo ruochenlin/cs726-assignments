@@ -1,0 +1,32 @@
+\title{CS 726 Assignment 1}
+\author{Ruochen Lin}
+\documentclass[11pt]{article}
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{commath}
+\begin{document}
+\maketitle
+\section{}
+\subsection{}
+\subsection{}
+$x^Ty\leq\norm{x}_2\norm{y}_2$; the inequality becomes equality when $y=\alpha x$, $\alpha > 0$. Thus from $x^Ty\leq 1$, $\forall y$ s.t. $\norm{y}_2=1$ we can know $\norm{x}_2\leq1$. This is a hypersphere in $\mathbb{R}^n$, which is not a polyhedron.
+\subsection{}
+For all $\{y\, |\,\norm{y}_1=1\}$, $x^Ty\leq\norm{x}_\infty$; the inequality becomes equality when $y$ has entry $1$ at the position corresponding to $\max \{x_i\}$ and zeros else where. Thus the condition given is equivalent to $\norm{x}_\infty\leq1$. The resulting shape is a polyhedron, given by the conditions of $\{x\, |\, -1\leq x_i\leq1\}$; in this case $$A=\begin{bmatrix} 1 & 1 & 1 &\dots&1\\-1 &-1&-1&\dots& -1 \end{bmatrix}$$ $$\\b=\begin{bmatrix}1\\1\end{bmatrix}$$
+
+\section{}
+If $x^*$ is a local minimum, then there $\exists\mathcal{N}(x^*):\,\forall x \in\mathcal{N}(x^*),\,f(x)\geq x^*$. In addition, if $x^*$ is not a strict local minimum, $\forall \mathcal{N}(x^*),\,\exists x^\dagger\in\mathcal{N}(x^*):f(x^\dagger)\leq f(x^*) $. The two conditions combines to state that, in those $\mathbb{N}(x^*)$ that makes $x^*$ a local minimum, $x^\dagger=x^*$. Also, $x^\dagger$ must not be on the boundaries of those $\mathcal{N}(x^*)$; otherwise if we leave out $x^\dagger$ in $\mathcal{N}(x^*)$, it will be a neighbourhood that makes $x^*$ a strict minimum. Thus in $\mathcal(x^*)$, which is now also $\mathcal{N}(x^\dagger)$, $\forall x\in\mathcal{N}(x^\dagger)$, $f(x) \geq f(x^\dagger)=f(x^*)$. This means that $x^\dagger$ is also a local minimum, and $x^\dagger$ exists in all neighbourhoods of $x^*$; hence we prove that $x^*$ cannot be an isolated minimum if it is not a strict one.
+
+\section{}
+\subsection{}
+A square matrix that has all of its entries being $1$ is not positive definite because $0$ is one of its eigenvalues, despite having all positive entries.
+\subsection{}
+Yes. If one of its diagonal entries is nonpositive, say $a_{ii}\leq0$, then $x^TAx=a_{ii}x_i^2\leq0$ with $x_j=\delta_{ij}$. Note that $\delta_{ij}$ is the Kronecker delta, which gives $1$ when $i=j$ and $0$ otherwise.
+\section{}
+
+\section{}
+$$\nabla f(x)=\begin{bmatrix}2x_1+\beta x_2 & 2x_2+\beta x_1+2\end{bmatrix}^T$$ $$\nabla^2f(x)=\begin{bmatrix}2 & \beta \\ \beta & 2 \end{bmatrix}$$
+The solution to $\nabla f(x)=0$ is $x=\begin{bmatrix} \frac{2\beta}{4-\beta^2} & -\frac{4}{4-\beta^2} \end{bmatrix}^T$, given that $\beta\neq\pm2$. To further make the solution global minimizer, we require the Hessian to be positively definite, so that the function is strictly convex. The eigenvalues of the Hessian are $\lambda=2\pm\beta$, and only when both eigenvalues are positive is the Hessian positive definite. To meet these criteria, we have $\lambda\in(-2,2)$.
+\section{}
+
+
+\end{document}
