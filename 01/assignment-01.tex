@@ -8,6 +8,7 @@
 \maketitle
 \section{}
 \subsection{}
+This is a polyhedron with $$F=\begin{bmatrix} 1 & 1 & \dots &1\\a_1 & a_2 & \dots&a_n\\a_1^2&a_2^2&\dots&a_n^2 \end{bmatrix},\,g=\begin{bmatrix}1\\b\\c \end{bmatrix}.$$
 \subsection{}
 $x^Ty\leq\norm{x}_2\norm{y}_2$; the inequality becomes equality when $y=\alpha x$, $\alpha > 0$. Thus from $x^Ty\leq 1$, $\forall y$ s.t. $\norm{y}_2=1$ we can know $\norm{x}_2\leq1$. This is a hypersphere in $\mathbb{R}^n$, which is not a polyhedron.
 \subsection{}
@@ -22,7 +23,9 @@ A square matrix that has all of its entries being $1$ is not positive definite b
 \subsection{}
 Yes. If one of its diagonal entries is nonpositive, say $a_{ii}\leq0$, then $x^TAx=a_{ii}x_i^2\leq0$ with $x_j=\delta_{ij}$. Note that $\delta_{ij}$ is the Kronecker delta, which gives $1$ when $i=j$ and $0$ otherwise.
 \section{}
-
+$$\nabla f(x)=\begin{bmatrix} 400x_1^3-400x_1x_2+2x_1-2 & -200x_1+200x_2\end{bmatrix}^T$$
+$$\nabla ^2f(x)=\begin{bmatrix} 1200x_1^2-400x_2+2 & -400x_1\\ -400x_1 &200\end{bmatrix} $$
+Inserting $x=\begin{bmatrix} 1 & 1\end{bmatrix}^T $ into the expression of the gradient, we have $\nabla f(\begin{bmatrix} 1&1\end{bmatrix}^T )=0$, thus this is a stationary point of $f(x)$. In addition, at this point the Hessian matrix is $$\nabla f(\begin{bmatrix} 1 & 1\end{bmatrix}^T ) = \begin{bmatrix} 802 & -400 \\ -400 & 200\end{bmatrix} .$$ The determinant of $\nabla ^2f(x)$ is 4, and the determinant of $[802]$ is 802, both being positive. This shows that the Hesssian at the point is positive definite and the point is a local minimum. 
 \section{}
 $$\nabla f(x)=\begin{bmatrix}2x_1+\beta x_2 & 2x_2+\beta x_1+2\end{bmatrix}^T$$ $$\nabla^2f(x)=\begin{bmatrix}2 & \beta \\ \beta & 2 \end{bmatrix}$$
 The solution to $\nabla f(x)=0$ is $x=\begin{bmatrix} \frac{2\beta}{4-\beta^2} & -\frac{4}{4-\beta^2} \end{bmatrix}^T$, given that $\beta\neq\pm2$. To further make the solution global minimizer, we require the Hessian to be positively definite, so that the function is strictly convex. The eigenvalues of the Hessian are $\lambda=2\pm\beta$, and only when both eigenvalues are positive is the Hessian positive definite. To meet these criteria, we have $\lambda\in(-2,2)$.
@@ -35,5 +38,12 @@ $\nabla f(x)=0$ has three solutions: $\begin{bmatrix}0&0\end{bmatrix}^T$, $\begi
 \subsection{}
 $$\nabla f(x)=\begin{bmatrix}x_1+\cos x_2&-x_1\sin x_2\end{bmatrix}^T$$
 $$\nabla^2f(x)=\begin{bmatrix}1&-\sin x_2\\-\sin x_2 & -x_1\cos x_2\end{bmatrix}$$
-The solutions to $\nabla f(x)=0$ are $\begin{bmatrix} 0 & (k+\frac{1}{2})\pi\end{bmatrix}^T$ and $\begin{bmatrix} (-1)^{k+1} & k\pi \end{bmatrix}^T$ ($k\in \mathbb{Z}$). For the first family of solutions, $$\nabla ^2f(\begin{bmatrix} 0 & (k+\frac{1}[2])\pi\end{bmatrix}^T )=\begin{bmatrix} 1 & (-1)^{k+1} \\ (-1)^{k+1} & 0\end{bmatrix}.$$  As for the latter family of solutions, $$\nabla ^2f(\begin{bmatrix} (-1)^{k+1} & k\pi\end{bmatrix}^T )=\begin{bmatrix} 1 & 0 \\ 0 & -1\end{bmatrix}$$, which has a negative eigenvalue. Thus these are not 
+The solutions to $\nabla f(x)=0$ are $\begin{bmatrix} 0 & (k+\frac{1}{2})\pi\end{bmatrix}^T$ and $\begin{bmatrix} (-1)^{k+1} & k\pi \end{bmatrix}^T$ ($k\in \mathbb{Z}$). For the first family of solutions, $$\nabla ^2f(\begin{bmatrix} 0 & (k+\frac{1}{2})\pi\end{bmatrix}^T )=\begin{bmatrix} 1 & (-1)^{k+1} \\ (-1)^{k+1} & 0\end{bmatrix}\nsucceq0.$$ This matrix has eigenvalues $\lambda=\frac{1\pm\sqrt{5}}{2}$, one of which is negative. Because the Hessian is not positive definite, these points are only saddle points of $f(x)$.\\ 
+As for the latter family of solutions, $$\nabla ^2f(\begin{bmatrix} (-1)^{k+1} & k\pi\end{bmatrix}^T )=\begin{bmatrix} 1 & 0 \\ 0 & 1\end{bmatrix}\succ0,$$  These are local minima of $f(x)$, and at these points $f(x)=\frac{1}{2}(-1)^{2(k+1)}+(-1)^{k+1}\cos {k\pi}=-\frac{1}{2}$. 
+
+\subsection{}
+$$\nabla f(x) =\begin{bmatrix} 4x_1^3-4x_1x_2-2x_1 & -2x_1^2+2x_2\end{bmatrix} $$
+$$\nabla^2 f(x)=\begin{bmatrix} 12x_1-4x_2-2 &-4x_1\\-4x_1 & 2\end{bmatrix} $$
+There is only one solution to the equation $f(x)=0$: $\begin{bmatrix} 0&0\end{bmatrix}^T$. At this point the Hessian is $$\nabla^2f(0)=\begin{bmatrix}-2 & 0\\ 0 &2\end{bmatrix}\nsucceq0,$$ which has one negative eigenvalue and hence is not positive definite. Thus $f(x)$ has only one stationary point $\begin{bmatrix} 0&0\end{bmatrix} ^T$, which is a saddle point.
+
 \end{document}
