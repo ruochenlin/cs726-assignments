@@ -27,6 +27,13 @@ Yes. If one of its diagonal entries is nonpositive, say $a_{ii}\leq0$, then $x^T
 $$\nabla f(x)=\begin{bmatrix}2x_1+\beta x_2 & 2x_2+\beta x_1+2\end{bmatrix}^T$$ $$\nabla^2f(x)=\begin{bmatrix}2 & \beta \\ \beta & 2 \end{bmatrix}$$
 The solution to $\nabla f(x)=0$ is $x=\begin{bmatrix} \frac{2\beta}{4-\beta^2} & -\frac{4}{4-\beta^2} \end{bmatrix}^T$, given that $\beta\neq\pm2$. To further make the solution global minimizer, we require the Hessian to be positively definite, so that the function is strictly convex. The eigenvalues of the Hessian are $\lambda=2\pm\beta$, and only when both eigenvalues are positive is the Hessian positive definite. To meet these criteria, we have $\lambda\in(-2,2)$.
 \section{}
-
-
+\section{}
+\subsection{}
+$$\nabla f(x)=\begin{bmatrix}4x_1^3-16x_1 & 2x_2\end{bmatrix}^T$$
+$$\nabla^2 f(x)=\begin{bmatrix}12x_1^2-16&0\\0&2\end{bmatrix}$$
+$\nabla f(x)=0$ has three solutions: $\begin{bmatrix}0&0\end{bmatrix}^T$, $\begin{bmatrix}2&0\end{bmatrix}^T$, and $\begin{bmatrix}-2&0\end{bmatrix}^T$. At $\begin{bmatrix}0&0\end{bmatrix}^T$ the Hessian is:$$\begin{bmatrix}-16&0\\0&2\end{bmatrix}^T,$$ which has a negative eigenvalue of $-16$, making it a first-order saddle point. At points $\begin{bmatrix}\pm2&0\end{bmatrix}^T$, the Hessian is $$\begin{bmatrix}32&0\\0&2\end{bmatrix}^T,$$ which is positive definite. This means that the latter two solutions are local minima of the function $f(x)$. Note that $f(x)\geq0$ and $f(\begin{bmatrix}\pm2&0\end{bmatrix}^T)=0$; hence the two local minima are global minima as well.
+\subsection{}
+$$\nabla f(x)=\begin{bmatrix}x_1+\cos x_2&-x_1\sin x_2\end{bmatrix}^T$$
+$$\nabla^2f(x)=\begin{bmatrix}1&-\sin x_2\\-\sin x_2 & -x_1\cos x_2\end{bmatrix}$$
+The solutions to $\nabla f(x)=0$ are $\begin{bmatrix} 0 & (k+\frac{1}{2})\pi\end{bmatrix}^T$ and $\begin{bmatrix} (-1)^{k+1} & k\pi \end{bmatrix}^T$ ($k\in \mathbb{Z}$). For the first family of solutions, $$\nabla ^2f(\begin{bmatrix} 0 & (k+\frac{1}[2])\pi\end{bmatrix}^T )=\begin{bmatrix} 1 & (-1)^{k+1} \\ (-1)^{k+1} & 0\end{bmatrix}.$$  As for the latter family of solutions, $$\nabla ^2f(\begin{bmatrix} (-1)^{k+1} & k\pi\end{bmatrix}^T )=\begin{bmatrix} 1 & 0 \\ 0 & -1\end{bmatrix}$$, which has a negative eigenvalue. Thus these are not 
 \end{document}
