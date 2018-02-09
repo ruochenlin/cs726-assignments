@@ -8,11 +8,11 @@
 \maketitle
 \section{}
 \subsection{}
-This is a polyhedron with $$F=\begin{bmatrix} 1 & 1 & \dots &1\\a_1 & a_2 & \dots&a_n\\a_1^2&a_2^2&\dots&a_n^2 \end{bmatrix},\,g=\begin{bmatrix}1\\b\\c \end{bmatrix}.$$
+This is a polyhedron with $$Ix\geq0 $$ $$\begin{bmatrix} 1 & 1 & \dots &1\\a_1 & a_2 & \dots&a_n\\a_1^2&a_2^2&\dots&a_n^2 \end{bmatrix}x=\begin{bmatrix}1\\b\\c \end{bmatrix}.$$
 \subsection{}
 $x^Ty\leq\norm{x}_2\norm{y}_2$; the inequality becomes equality when $y=\alpha x$, $\alpha > 0$. Thus from $x^Ty\leq 1$, $\forall y$ s.t. $\norm{y}_2=1$ we can know $\norm{x}_2\leq1$. This is a hypersphere in $\mathbb{R}^n$, which is not a polyhedron.
 \subsection{}
-For all $\{y\, |\,\norm{y}_1=1\}$, $x^Ty\leq\norm{x}_\infty$; the inequality becomes equality when $y$ has entry $1$ at the position corresponding to $\max \{x_i\}$ and zeros else where. Thus the condition given is equivalent to $\norm{x}_\infty\leq1$. The resulting shape is a polyhedron, given by the conditions of $\{x\, |\, -1\leq x_i\leq1\}$; in this case $$A=\begin{bmatrix} 1 & 1 & 1 &\dots&1\\-1 &-1&-1&\dots& -1 \end{bmatrix}$$ $$\\b=\begin{bmatrix}1\\1\end{bmatrix}$$
+For all $\{y\, |\,\norm{y}_1=1\}$, $x^Ty\leq\norm{x}_\infty$; the inequality becomes equality when $y$ has entry $1$ at the position corresponding to $\max \{x_i\}$ and zeros else where. Thus the condition given is equivalent to $\norm{x}_\infty\leq1$. The resulting shape is a polyhedron, given by the conditions of $\{x\, |\, -1\leq x_i\leq1\}$; this can be represented by $$Ix\geq \begin{bmatrix} -1\\-1\\ \vdots \\-1\end{bmatrix}$$ and $$-Ix\geq \begin{bmatrix} -1\\-1\\ \vdots \\-1\end{bmatrix}$$
 
 \section{}
 If $x^*$ is a local minimum, then there $\exists\mathcal{N}(x^*):\,\forall x \in\mathcal{N}(x^*),\,f(x)\geq x^*$. In addition, if $x^*$ is not a strict local minimum, $\forall \mathcal{N}(x^*),\,\exists x^\dagger\in\mathcal{N}(x^*):f(x^\dagger)\leq f(x^*) $. The two conditions combines to state that, in those $\mathbb{N}(x^*)$ that makes $x^*$ a local minimum, $x^\dagger=x^*$. Also, $x^\dagger$ must not be on the boundaries of those $\mathcal{N}(x^*)$; otherwise if we leave out $x^\dagger$ in $\mathcal{N}(x^*)$, it will be a neighbourhood that makes $x^*$ a strict minimum. Thus in $\mathcal(x^*)$, which is now also $\mathcal{N}(x^\dagger)$, $\forall x\in\mathcal{N}(x^\dagger)$, $f(x) \geq f(x^\dagger)=f(x^*)$. This means that $x^\dagger$ is also a local minimum, and $x^\dagger$ exists in all neighbourhoods of $x^*$; hence we prove that $x^*$ cannot be an isolated minimum if it is not a strict one.
@@ -30,6 +30,7 @@ Inserting $x=\begin{bmatrix} 1 & 1\end{bmatrix}^T $ into the expression of the g
 $$\nabla f(x)=\begin{bmatrix}2x_1+\beta x_2 & 2x_2+\beta x_1+2\end{bmatrix}^T$$ $$\nabla^2f(x)=\begin{bmatrix}2 & \beta \\ \beta & 2 \end{bmatrix}$$
 The solution to $\nabla f(x)=0$ is $x=\begin{bmatrix} \frac{2\beta}{4-\beta^2} & -\frac{4}{4-\beta^2} \end{bmatrix}^T$, given that $\beta\neq\pm2$. To further make the solution global minimizer, we require the Hessian to be positively definite, so that the function is strictly convex. The eigenvalues of the Hessian are $\lambda=2\pm\beta$, and only when both eigenvalues are positive is the Hessian positive definite. To meet these criteria, we have $\lambda\in(-2,2)$.
 \section{}
+Define $p\equiv y-x$, then the characterization of convexity can be written as $$f(x+p)\geq f(x)+\nabla f(x)^Tp.$$ Use Taylor's theorem: $$f(x+p)=f(x)+\nabla f(x)^Tp+\frac12p^T\nabla ^2f(x+\gamma p)p, \gamma\in[0,1].$$ First, if the Hessian is positive semi-definite for $\forall x\in\mathbb{R}^n$, then $\frac12p^T\nabla^2f(x+\gamma p)p\geq0$, $\forall p\in \mathbb{R}^n$. The remaining part of the equation is exactly the characterization inequality at its equality, which is now satisfied, hence proves $f$ is convex if $\nabla^2f(x)\succeq0$. On the other hand, if $\nabla^2f(x)\prec0$ in some region of $\mathbb{R}^n$, then we can easily $x$ in the region and $p$ small enough so that both $y=x+p$ and all points on the intersect connecting the two points also falls in the region and that $\frac12p^T\nabla^2f(x+\gamma p)p< 0$. Then the characterization of convexity is violated, and thus $f$ is not convex in the region.   
 \section{}
 \subsection{}
 $$\nabla f(x)=\begin{bmatrix}4x_1^3-16x_1 & 2x_2\end{bmatrix}^T$$
