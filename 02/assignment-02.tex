@@ -1,0 +1,17 @@
+\title{CS 726 Assignment 2}
+\author{Ruochen Lin}
+\documentclass[11pt]{article}
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{commath}
+\begin{document}
+\maketitle
+\section{}
+$x_k=x^*+exp(-3^k)$ decreases to zero Q-superlinearly because $$\lim_{k\to+\infty}\frac{\norm{x_{k+1}-x^*}}{\norm{x_{k}-x^*}}=\lim_{k\to+\infty}\frac{exp(-3^{k+1})}{exp(-3^{k})}={\lim_{k\to+\infty}}e^{-2\cdot 3^k}=0.$$ Similarly, we can prove ${x_k}$ does not vanish Q-quadratically because $$\lim_{k\to+\infty}\frac{\norm{x_{k+1}-x^*}}{\norm{x_{k}-x^*}^2}=\lim_{k\to+\infty}\frac{exp(-3^{k+1})}{exp(-2\cdot3^{k})}={\lim_{k\to+\infty}}e^{-3^k}=0.$$
+
+\section{}
+Suppose $i_{max}=\arg\max_{i}\{(\nabla f(x_k))_i\}$ and $d_k$ is given by $$(d_k)_i=-\delta_{i,i_{max}}(\nabla f(x_k))_{i_{max}},$$ then $$\frac{-d_k^T\nabla f(x_k)}{\norm{\nabla f(x_k)}\norm{d_k}}=\frac{\norm{d_k}^2}{\norm{\nabla f(x_k)}\norm{d_k}}=\frac{\norm{d_k}}{\norm{\nabla f(x_k)}}\geqslant\frac1m, $$ with $m$ being the dimensionality of $x$, because the entry passed from $-\nabla f(x_k)$ to $d_k$ is the largest one, and other entries in $\nabla f(x_k)$ cannot exceed the magnitude of this entry. Compare this inequality with the first requirement, we have $\bar{\epsilon}=\frac1m$.\\[0.5cm]
+In addition, because $d_k$ is constructed by picking out the largest entry in $-\nabla f(x_k)$, its norm cannot exceed that of $\nabla f(x_k)$, and thus $\frac{\norm{d_k}}{\norm{\nabla f(x_k)}}\leqslant1$. Combine our observations from the preceeding part, we have $\gamma_1\leqslant\frac1m$, $\gamma_2=1$.\\[0.5cm]
+We should probably be more cautious about the choice of $\gamma_1$, because our analysis can only guarantee that $\frac{\norm{d_k}}{\norm{\nabla f(x_k)}}$ is no smaller than $\frac1m$; if all entries in $\nabla f(x_k)$ have the same magnitude, then $\norm{d_k}=\frac1m\norm{\nabla f(x_k)}$. Thus a safer choice of $\gamma_1$ might be one that's slightly smaller than $\frac1m$, say $\frac9{10m}$. 
+
+\end{document}
