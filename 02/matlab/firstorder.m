@@ -7,8 +7,16 @@ count_sde = 0;
 count_nest = 0;
 count_cg = 0;
 for i = 1 : 10
-	A = generateA(dim); % generate a symmetric positive definite matrix A
-	lambda = eig(A);
+	mu=0.01; L=1; kappa=L/mu; n = 100;
+	A = randn(n,n); [Q,R]=qr(A);
+	D=rand(n,1); D=10.^D; Dmin=min(D); Dmax=max(D);
+	D=(D-Dmin)/(Dmax-Dmin);
+	D=mu+D*(L-mu);
+	A=Q'*diag(D)*Q;
+	clear mu; clear L; clear kappa; clear n;
+	clear D; clear Dmin;clear Dmax;clear Q;
+
+ 	lambda = eig(A);
 	L = max(lambda);
 	m = min(lambda);
 	x0 = randn(dim, 1);

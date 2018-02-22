@@ -7,12 +7,38 @@
 \begin{document}
 \maketitle
 \section{}
-The example in textbook $x_k=x^*+k^{-k}$ decreases to zero Q-superlinearly because \begin{equation}\begin{split}\lim_{k\to+\infty}\frac{\norm{x_{k+1}-x^*}}{\norm{x_{k}-x^*}}&=\lim_{k\to+\infty}\frac{(k+1)^{-(k+1)}}{k^{-k}}=\lim_{k\to+\infty}(1+\frac1k)^{-k}(k+1)^{-1}\\&=\lim_{k\to+\infty}(1+\frac1k)^{-k}\times\lim_{k\to+\infty}\frac1{k+1}=\frac1e\times0\\&=0,\end{split}\nonumber\end{equation} 
-in which \begin{equation} \begin{split}\lim_{k\to+\infty} (1+\frac1k)^{-k} &= \lim_{k\to+\infty}\exp(-k\ln(1+\frac1k)) = \exp(-\lim_{k\to+\infty}k\ln(1+\frac1k)\\&=\exp(-\lim_{k\to+\infty} \frac{\ln(1+\frac1k)}{\frac1k}))=\exp(-\lim_{a\to0^+}\frac{\ln(1+a)}a)\\&=\exp(-\lim_{a\to 0^+}\frac{\frac1{1+a}}1)=e^{-1}, \end{split}\nonumber\end{equation} where we used L'Hospital's rule. \\[0.5cm]
+The textbook example of $x_k=x^*+k^{-k}$ gives an error that decreases to zero Q-superlinearly because \begin{equation}\begin{split}\lim_{k\to+\infty}\frac{\norm{x_{k+1}-x^*}}{\norm{x_{k}-x^*}}&=\lim_{k\to+\infty}\frac{(k+1)^{-(k+1)}}{k^{-k}}=\lim_{k\to+\infty}(1+\frac1k)^{-k}(k+1)^{-1}\\&=\lim_{k\to+\infty}(1+\frac1k)^{-k}\times\lim_{k\to+\infty}\frac1{k+1}=\frac1e\times0\\&=0,\end{split}\nonumber\end{equation} 
+in which \begin{equation} \begin{split}\lim_{k\to+\infty} (1+\frac1k)^{-k} &= \lim_{k\to+\infty}\exp(-k\ln(1+\frac1k)) = \exp(-\lim_{k\to+\infty}k\ln(1+\frac1k)\\&=\exp(-\lim_{k\to+\infty} \frac{\ln(1+\frac1k)}{\frac1k}))=\exp(-\lim_{a\to0^+}\frac{\ln(1+a)}a)\\&=\exp(-\lim_{a\to 0^+}\frac{\frac1{1+a}}1)=e^{-1}, \end{split}\nonumber\end{equation} where we used L'Hospital's rule. \\[0.5cm] 
 Similarly, we can prove ${x_k}$ does not converge to $x^*$ Q-quadratically because \begin{equation}\begin{split}\lim_{k\to+\infty}\frac{\norm{x_{k+1}-x^*}}{\norm{x_{k}-x^*}^2}&=\lim_{k\to+\infty}\frac{(k+1)^{-k-1}}{k^{-2k}}=\lim_{k\to+\infty}(1+\frac1k)^{-k}\frac{(k+1)^{-1}}{k^{-k}}\\&=\lim_{k\to+\infty}(1+\frac1k)^{-k}\frac{k^k}{k+1}=+\infty.\end{split}\nonumber\end{equation}
 \section{}
 Suppose $i_{max}=\arg\max_{i}\{(\nabla f(x_k))_i\}$ and $d_k$ is given by $$(d_k)_i=-\delta_{i,i_{max}}(\nabla f(x_k))_{i_{max}},$$ then $$\frac{-d_k^T\nabla f(x_k)}{\norm{\nabla f(x_k)}\norm{d_k}}=\frac{\norm{d_k}^2}{\norm{\nabla f(x_k)}\norm{d_k}}=\frac{\norm{d_k}}{\norm{\nabla f(x_k)}}\geqslant\frac1{\sqrt{m}}, $$ with $m$ being the dimensionality of $x$, because the entry passed from $-\nabla f(x_k)$ to $d_k$ is the largest one, and other entries in $\nabla f(x_k)$ cannot exceed the magnitude of this entry. Compare this inequality with the first requirement, we have $\bar{\epsilon}=\frac1{\sqrt{m}}$.\\[0.5cm]
 In addition, because $d_k$ is constructed by picking out the largest entry in $-\nabla f(x_k)$, its norm cannot exceed that of $\nabla f(x_k)$, and thus $\frac{\norm{d_k}}{\norm{\nabla f(x_k)}}\leqslant1$. Combine this with our observations from the preceeding part, we have $\gamma_1=\frac1{\sqrt{ m}}$, $\gamma_2=1$.
 % We should probably be more cautious about the choice of $\gamma_1$, because our analysis can only guarantee that $\frac{\norm{d_k}}{\norm{\nabla f(x_k)}}$ is no smaller than $\frac1m$; if all entries in $\nabla f(x_k)$ have the same magnitude, then $\norm{d_k}=\frac1m\norm{\nabla f(x_k)}$. Thus a safer choice of $\gamma_1$ might be one that's slightly smaller than $\frac1m$, say $\frac9{10m}$. 
 
+\section{}
+Steepest descent, steepest descent with exact line search, Nesterov, and conjugate gradient methods are implemented with \texttt{MATLAB} to optimize the simple quadratic function of $f(x)=\frac12x^TAx$, with $A$ being a random $100\times100$ symmetric positive definite matrix. Ten such $A$s are generated and the average numbers of iterations needed by the four algorithms to satisfy the criterion of $f(x)-f(x^*)\leqslant10^{-6}$ are the following: \\[0.25cm]
+  \texttt{steepest descent - fixed steps :\ \ \ 423.4}\\
+  \texttt{steepest descent - exact steps :\ \ \ 213.4}\\
+  \texttt{Nesterov\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ \ \ \ 78.0}\\
+  \texttt{conjugate gradient\ \ \ \ \ \ \ \ \ \ \ \ \ :\ \ \ \ 32.0}.\\[0.25cm] 
+Judging from the statistics, we can rank the four algorithms by their efficiency in optimizing the simple quadratic function given above as the folloing: conjugate gradient $>$ Nesterov $>$ steepest descent with exact line search $>$ direct steepest descent.\\[0.5cm]
+This conclusion is supported by \texttt{Figure 1}, which is a plot of the errors after each iteration with the four algorithms. From $Figure 1$ we can see that all four algorithms minimizes error drastically in the first few dozens of steps, and then exhibits a linear convergence towards $x^*$, with relative rates matching the order given above. 
+\begin{figure}[h]
+\includegraphics[scale = 0.5] {matlab/four-algo.jpg}
+\centering
+\caption{Convergence plot of four algorithms with a $100\times100$ $A$.}
+\end{figure}\\
+If we want to dig into the different convergence rates, we can do the following analysis: The function of $f(x) = \frac12x^TAx$ is both strongly convex (with modulus $m=0.01$) and Lipschitz differentiable (with $L=1$), so $\frac mL=0.01$. The upper bound of error after $k$ iterations in direct steepest descent (with step size $-\frac1L\nabla f(x^k)$) is given by the following inequality: 
+$$f(x^k)-f(x^*)\leqslant(1-\frac mL)^k(f(x^0)-f(x^*)),$$
+so the slope in the $\log_{10}(f(x^k)-f(x^*))$ vs $k$plot should be about $\log_{10}(1-\frac mL)=\log_{10}0.99=-0.0044$.\\[0.5cm] The steepest descent with exact line search uses the optimal step size in each iteration along the direction of $-\nabla f(x^k)$, and thus should have faster convergence rate (and thus steeper slope in \texttt{Figure 1}) compared to direct steepest descent; yet it still the same asymptotic behaviour.\\[0.5cm]
+Nesterov's method has the asymptotic convergence upper bounded by the following inequality:
+$$f(x^k)-f(x^*)\leqslant(1-\sqrt{\frac mL})^k[f(x^0)-f(x^*)+\frac m2\norm{x^0-x^*}^2],$$
+and the slope of the corresponding curve in \texttt{Figure 1} should be more negative than $\log_{10}(1-\sqrt{\frac mL})=\log_{10}0.9=-0.0458$, which is ten times larger in value than that of direct steepest descent. And we indeed see a much sharper decreasing curve in \texttt{Figure 1}!\\[0.5cm]
+As for conjugate gradient method, since $A$ is a $100\times100$ matrix, we expect conjugate gradient algorithm to reach the optimal solution within $100$ steps; thus we extended its plot to $120$ iterations (\texttt{Figure 2},) and indeed the error reached the order of $10^{-28}$, in less than $90$ steps. A possible reason of the error not being further minimised is that this might be the maximal numerical accuracy \texttt{MATLAB} can reach.
+\begin{figure}[h]
+\includegraphics[scale=0.5]{matlab/cg.jpg}
+\caption{Convergence plot of conjugate gradient algorithm with 120 iterations on 100$\times$100 $A$}
+\centering
+\end{figure}\\
+In conclusion, the behaviours of the four algorithms generally matches our theoretical analyses; the result is very assuring.
 \end{document}
