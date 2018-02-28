@@ -14,9 +14,9 @@ while iter <= max_iter
 		U = alpha;
 		alpha = (L + U) / 2;
 	else 
-		if feval(fun, x.p + step, 2)'*step < c2 * x.g' * step
+		if feval(fun, x.p + step, 2)' * d < c2 * x.g' * d
 			L = alpha;
-			if U = Inf
+			if U == Inf
 				alpha = 2 * L;
 			else
 				alpha = (L + U) / 2;
