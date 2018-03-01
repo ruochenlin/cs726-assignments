@@ -1,0 +1,36 @@
+\title{CS 726 Assignment 2}
+\author{Ruochen Lin}
+\documentclass[11pt]{article}
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{commath}
+\begin{document}
+\maketitle
+\section{}
+Given $0<c_2<c_1<1$, we simply need to find a function that satisfy the two inequalities in distinct regions. For example:
+% TODO: add a graph of the function
+
+\section{}
+Given $f(x) = \frac12x^TQx-b^Tx$, if $x_0-x^*$ is an eigenvector of $Q$, namely $$Q(x_0-x^*) = \lambda(x_0-x^*)$$, with $x^*$ being the minimizer of $f$, then
+\begin{equation}\begin{split} \nabla f(x^*) &= Qx^*-b = 0 \\ \Rightarrow\,\,\, b &= Qx^* \end{split}\nonumber\end{equation} 
+and
+\begin{equation}\begin{split} \nabla f(x_0) &= Qx_0-b = Q(x_0-x^*)\\&=\lambda(x^0-x^*)\end{split}.\nonumber\end{equation} 
+If we apply steepest descent with exact line search to $f$, then
+\begin{equation}\begin{split} x_1 = x_0 - \alpha_0\nabla f(x_0) = x_0 - \alpha_0\lambda(x_0-x_*),\end{split}\nonumber\end{equation}
+with $\alpha_0$ given by
+\begin{equation}\begin{split}\alpha_0 &= \frac{\nabla f(x_0)^T\nabla f(x_0)}{\nabla f(x_0)^TQ\nabla f(x_0)} \\
+&= \frac{[\lambda(x_0-x^*)]^T[\lambda(x_0-x^*)]}{[\lambda(x_0-x^*)]^TQ[\lambda(x_0-x^*)]}\\
+&= \frac{\lambda^2\norm{x_0-x^*}^2}{\lambda^3\norm{x_0-x^*}}\\
+&= \frac1{\lambda}.
+\end{split}\nunumber\end{equation}
+Plug $\alpha_0$ into the expression for $x_1$, we have:
+\begin{equation}\begin{split} 
+x_1 &= x_0 -frac1{\lambda}\lambda(x_0-x^*)\\
+&=x_0 - x_0 + x^*\\
+&=x^*.
+\end{split}\nonumber\end{equation} 
+So if $x_0-x^*$ is an eigenvector of $Q$, then we can get to the solution with but one step of steepest descent with exact line search.
+% TODO: check the phrasing of the original problem
+% TODO: discuss \lambda == 0
+\end{document}
+
