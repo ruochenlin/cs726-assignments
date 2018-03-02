@@ -11,10 +11,13 @@ Given $0<c_2<c_1<1$, we simply need to find a function that satisfy the two ineq
 % TODO: add a graph of the function
 
 \section{}
-Given $f(x) = \frac12x^TQx-b^Tx$, if $x_0-x^*$ is an eigenvector of $Q$, namely $$Q(x_0-x^*) = \lambda(x_0-x^*)$$, with $x^*$ being the minimizer of $f$, then
+Given $f(x) = \frac12x^TQx-b^Tx$, if $x_0-x^*$ is parallel to an eigenvector of $Q$, namely 
+$$x_0 - x^* = cv,\, Qv = \lambda v,$$
+then $x_0 - x^*$ is also an eigenvector of $Q$ with eigenvalue $\lambda$:
+$$Q(x_0-x^*) = \lambda(x_0-x^*),$$ with the assumption that $Q$ is nonsingular and thus $\lambda\neq0.$ In addition,
 \begin{equation}\begin{split} \nabla f(x^*) &= Qx^*-b = 0 \\ \Rightarrow\,\,\, b &= Qx^* \end{split}\nonumber\end{equation} 
 and
-\begin{equation}\begin{split} \nabla f(x_0) &= Qx_0-b = Q(x_0-x^*)\\&=\lambda(x^0-x^*)\end{split}.\nonumber\end{equation} 
+\begin{equation}\begin{split} \nabla f(x_0) &= Qx_0-b = Q(x_0-x^*)\\&=\lambda(x_0-x^*).\end{split}\nonumber\end{equation} 
 If we apply steepest descent with exact line search to $f$, then
 \begin{equation}\begin{split} x_1 = x_0 - \alpha_0\nabla f(x_0) = x_0 - \alpha_0\lambda(x_0-x_*),\end{split}\nonumber\end{equation}
 with $\alpha_0$ given by
@@ -22,10 +25,10 @@ with $\alpha_0$ given by
 &= \frac{[\lambda(x_0-x^*)]^T[\lambda(x_0-x^*)]}{[\lambda(x_0-x^*)]^TQ[\lambda(x_0-x^*)]}\\
 &= \frac{\lambda^2\norm{x_0-x^*}^2}{\lambda^3\norm{x_0-x^*}}\\
 &= \frac1{\lambda}.
-\end{split}\nunumber\end{equation}
+\end{split}\nonumber\end{equation}
 Plug $\alpha_0$ into the expression for $x_1$, we have:
 \begin{equation}\begin{split} 
-x_1 &= x_0 -frac1{\lambda}\lambda(x_0-x^*)\\
+x_1 &= x_0 -\frac1{\lambda}\lambda(x_0-x^*)\\
 &=x_0 - x_0 + x^*\\
 &=x^*.
 \end{split}\nonumber\end{equation} 
