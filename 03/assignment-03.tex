@@ -9,7 +9,12 @@
 \section{}
 Given $0<c_2<c_1<1$, we simply need to find a function that satisfy the two inequalities in distinct regions. For example:
 % TODO: add a graph of the function
-
+\begin{figure}[ht]
+\centering{
+\includegraphics[width=12cm]{prob1.jpg}
+\caption{A function that violates weak Wolfe condition at $x_k=0$}}
+\end{figure}
+This function satisfies the first inequality in the region left to the intersection between $f(x)$ and $y=-c_1f'(0)x+f(0)$, but only satisfies the second inequality in the region between the tangent shown in Figure 1 all the way to the right. Since the two region has no overlap, the given function violates the weak Wolfe condition at $x_k=0$.
 \section{}
 Given $f(x) = \frac12x^TQx-b^Tx$, if $x_0-x^*$ is parallel to an eigenvector of $Q$, namely 
 $$x_0 - x^* = cv,\, Qv = \lambda v,$$
@@ -32,8 +37,61 @@ x_1 &= x_0 -\frac1{\lambda}\lambda(x_0-x^*)\\
 &=x_0 - x_0 + x^*\\
 &=x^*.
 \end{split}\nonumber\end{equation} 
-So if $x_0-x^*$ is an eigenvector of $Q$, then we can get to the solution with but one step of steepest descent with exact line search.
-% TODO: check the phrasing of the original problem
-% TODO: discuss \lambda == 0
-\end{document}
+So, if $x_0-x^*$ is an eigenvector of $Q$, we can get to the solution with but one step of steepest descent with exact line search.
 
+\section{}
+Running \texttt{descentLS.m} with $\eta = 0$ yielded the following output:
+% TODO: insert screenshot of output
+\begin{figure}[h]
+\centering
+{\includegraphics[width=8cm]{ls_output.png}
+\caption{Output of \texttt{descentLS.m} with $\eta=0$}}
+\end{figure}
+To better show the change of number of iterations (\texttt{nIter}), of function evaluations (\texttt{numf}), and gradient evaluations (\texttt{numg}) needed to reach the convergence criterion with the three functions (texttt{obja}, texttt{objb}, and {rosenbrock}), we tabulated the output in files \texttt{ls\_obja.dat}, \texttt{ls\_objb.dat}, and \texttt{ls\_rosenbrock.dat}, which can be found in Supplementary materials. Plotting the natural logarithm of the three values, with respect to the corresponding $\eta$, gets us the following figures:
+\begin{figure}[ht]
+\centering{
+\includegraphics[width=12cm]{ls_iter.png}
+\caption{Number of iterations needed for steepest descent with exact line search to converge}
+}
+\end{figure}
+\begin{figure}[ht]
+\centering{
+\includegraphics[width=12cm]{ls_feval.png}
+\caption{Number of function evaluations needed for steepest descent with exact line search to converge}}
+\end{figure}
+\begin{figure}[ht]
+\centering{
+\includegraphics[width=12cm]{ls_geval.png}
+\caption{Number of gradient evaluations needed for steepest descent with exact line search to converge}}
+\end{figure}
+% TODO: spot the unconverged cases
+We see that texttt{obja} needed the least computation to converge, with \texttt{objb} being the next, and \texttt{rosenbrock} needed the largest number of iterations and function/gradient evaluations to converge.\\[0.4cm]
+By taking a closer look at the figures, we note that $\eta=0$ seems to have similar performance in terms of iterations and gradient evaluations as $\eta\in(1,20]$ for functions \texttt{obja} and \texttt{objb}; but for \texttt{rosenbrock} $\eta=0$ seems to give better performance than most values in $\eta\in(1,20]$. Also, we notice that, for all three functions, the change in $\eta$ along $(1,20]$ does not seem to impact the number of iterations and gradient evaluations too much; but there is a discernible increase in \texttt{numf} as we increase $\eta$, and $\eta=0$ seems to require more function evaluations than, say, $\eta\in(1,5]$. We also note that at $\eta=15.8$, the algorithm failed to converge within $10,000$ steps into $\norm{\nabla{x_k}}\leqslant10^{-4}$. Lastly, there is an outlier at $\eta=19.6$ for \texttt{rosenbrock}, at which point the result converged within $1269$ iterations, while it usually takes $6000-9000$ iterations to converge.
+\newpage
+\section{}
+Similar to the previous part, we run \texttt{descentBacktrack.m} with $\eta=0$ and got the following output:
+\begin{figure}[h]
+\centering{
+\includegraphics[width=8cm]{back_output.png}
+\caption{Output of \texttt{descentBacktrack.m} with $\eta=0$}}
+\end{figure}
+We noticed that for all three functions, \texttt{descentBacktrack.m} converged with the same number of iterations and function evaluations as \texttt{descentLS.m}; but the number of gradient evaluations were almost cut in half. This corroborates the claim in the textbook that backtracking line search steepest descent will be more economical when gradient evaluation is expensive.\\[0.4cm]
+By comparing the performance of algorithm to that of the preceeding section, we found that the two algorithms required similar numbers of iterations and gradient evaluations to converge; but \texttt{descentBacktrack.m} requires about $\frac12$ to $\frac13$ less of function evaluations than \texttt{descentLS.m}; for example, for \texttt{obja}, \texttt{descentBacktrack.m} needed $~e^3$ function calls, but \texttt{descentLS.m} requires about $~e^4$. Also, the $\eta=19.6$ outlier in \texttt{descentLS} is not present here.
+Apart from this, the qualitative observations we had for steepest descent with exact line search are mostly still valid in steepest descent with backtracking line search: in terms of iterations and gradient evaluations, $\eta=0$ still performs comparably with $\eta > 1$; but it requires significantly more function evaluations than $\eta \in (0,5].$ Increasing $\eta$ along $(1,20]$ also increases the number of function evaluations needed.
+\begin{figure}[ht]
+\centering{
+\includegraphics[width=12cm]{back_iter.png}
+\caption{Number of iterations needed for steepest descent with backtrack line search to converge}}
+\end{figure}
+\begin{figure}[ht]
+\centering{
+\includegraphics[width=12cm]{back_feval.png}
+\caption{Number of function evaluations needed for steepest descent with backtrack line search to converge}}
+\end{figure}
+\begin{figure}[ht]
+\centering{
+\includegraphics[width=12cm]{back_geval.png}
+\caption{Number of gradient evaluations needed for steepest descent with backtrack line search to converge}}
+\end{figure}
+Finally, we note that the program failed to converge at $\eta$s $1.0,\, 8.0,\,\text{and}\,15.8$; this is a curious case because at $\eta=15.8$ the exact line search algorithm also failed the converge and at the point of $\eta=15.8$.
+\end{document}
