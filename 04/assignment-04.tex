@@ -81,7 +81,17 @@ Suppose $A$ is an $n\times n$ symmetric matrix, then
 \begin{equation}\begin{split}
 (A^k)_{ij} &=\sum_{x_1=1}^n \sum_{x_2=1}^n\cdots\sum_{x_{k-1}=1}^nA_{ix_1}A_{x_1x_2}\cdots A_{x_{k-1}j}\\
 &=\sum_{x_1=1}^n \sum_{x_2=1}^n\cdots\sum_{x_{k-1}=1}^nA_{x_1i}A_{x_2x_1}\cdots A_{jx_{k-1}}\\
-&=(A^k)){ji}.
+&=(A^k)_{ji}.
 \end{split}\nonumber\end{equation} 
-And clearly the sum of symmetric matrices is also symmetric; and a polynomial of $A$ to the $k$th power is a sum of $k+1$ symmetric matrices, which is symmetric.\\[0,4cm]
+And clearly the sum of symmetric matrices is also symmetric; and a polynomial of $A$ to the $k$th power is a sum of $k+1$ symmetric matrices, which is symmetric, and thus $[I+P_k(A)A]^T = [I + P_k(A)A].$\\[0,4cm]
+With the result from the textbook that $P_k(A)v_i=P_k(\lambda_i)v_i$, we have:
+\begin{equation}\begin{split} 
+[I+P_k(A)A]^TA[I+P_k(A)A]v_i &= [I+P_k(A)A]A[v_i+P_k(A)Av_i]\\
+&=[I+P_k(A)A]A[(1+\lambda_iP_k(\lambda_i))v_i] \\
+&=(1+\lambda_iP_k(\lambda_i))[I+P_k(A)A]Av_i \\
+&=\lambda_i(1+\lambda_iP_k(\lambda_i))[I+P_k(A)A]v_i\\
+&=\lambda_i(1+\lambda_iP_k(\lambda_i))^2v_i.
+\end{split}\nonumber\end{equation} 
+Hence $(v_i,\lambda_i(1+\lambda_iP_k(\lambda_i))^2)$ is an eigenpair of $[I+P_k(A)A]^TA[I+P_k(A)A]$, given that $(v_i,\lambda_i)$ is one for $A$.
+
 \end{document}
