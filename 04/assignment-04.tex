@@ -1,0 +1,87 @@
+\title{CS 726 Assignment 4}
+\author{Ruochen Lin}
+\documentclass[11pt]{article}
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{commath}
+\begin{document}
+\maketitle
+\section{}
+Given $d_k = -\nabla f(x_k)$ and $\alpha \in (0,\frac1L)$, we have $$x_{k+1} = x_k - \alpha \nabla f(x_k).$$ Also, equation (3.8) in the manuscript reads $$f(x + \alpha d)\leqslant f(x) +\alpha \nabla f(x)^Td + \alpha^2\frac L2\norm{d}^2;$$
+by plugging in $d = -\nabla f(x_k)$ we have 
+\begin{equation}\begin{split} 
+f(x_{k+1}) &\leqslant f(x_k) - \alpha \norm{\nabla f(x_k)}^2 + \frac{\alpha^2L}2\norm{\nabla f(x_k)}^2 \\
+&= f(x_k) - \frac{\alpha(2-\alpha L)}2\norm{\nabla f(x_k)}^2.
+\end{split}\end{equation} 
+\subsection{General case}
+Rearrange equation (1) we have:
+\begin{equation}\begin{split}\norm{\nabla f(x_k)}^2\leqslant \frac2{\alpha(2-\alpha L)}[f(x_k) - f(x_{k+1})]. \end{split}\end{equation} 
+Sum both sides of equation (2) from 0 to n, we have
+\begin{equation}\begin{split}
+\sum_{k=0}^{n} \norm{\nabla f(x_k)}^2 &\leqslant \frac2{\alpha(2-\alpha L)}[f(x_0) - f(x_{k+1})]\\
+&\leqslant \frac2{\alpha(2-\alpha L)} [f(x-0) - f(x^*)] \\
+\Rightarrow \min_{k = 0,\cdots, n}\norm{\nabla f(x_k)} &\leqslant \sqrt{\frac{2(f(x_0) - f(x^*))}{\alpha(n+1)(2-\alpha L)}},
+\end{split}\end{equation}  
+thus preserving the $\frac1{\sqrt{n}}$ convergence rate; note that if we plug $\alpha = \frac1L$ into the inequality above, we recover the results for steepest descent in the manuscript.
+
+\subsection{Convex case}
+If $f(x)$ is convex, then we have 
+\begin{equation}\begin{split}
+f(x*)&\geqslant f(x_k)+\nabla f(x_k)^T(x^*-x_k) \\ 
+\Rightarrow f(x_k) &\leqslant f(x^*) - \nabla f(x_k)^T (x^* - x_k).
+\end{split}\nonumber\end{equation} 
+Plug this into equation (1) we have 
+\begin{equation}\begin{split} 
+f(x_{k+1}) &\leqslant f(x^*) - \nabla f(x_k)^T(x^*-x_K) - \frac{\alpha(2-\alpha L)}2\norm{\nabla f(x_k)}^2 \\
+&=f(x^*) - \frac{\alpha(2-\alpha L)}2\nabla f(x_k)^T[\frac2{\alpha(2-\alpha L)}(x^*-x_k)+\nabla f(x_k)] \\
+&=f(x^*) - \frac{\alpha(2-\alpha L)}2\Big(\norm{\nabla f(x_k) +\frac{x^*-x_k}{\alpha(2-\alpha L)}}^2 - \norm{\frac{x^*-x_k}{\alpha(2-\alpha L)}}^2\Big) \\
+&=f(x^*) - \frac1{2\alpha(2-\alpha L)}\Big( \norm{\alpha(2-\alpha L)\nabla f(x_k) + x^* - x_k}^2 - \norm{x^* - x_k}^2  \Big) \\
+&\leqslant f(x^*) - \frac1{2\alpha(2-\alpha L)}\Big(\norm{\alpha\nabla f(x_k) + x^* - x_k}^2 - \norm{x^* - x_k}^2 \Big)\\
+&= f(x^*) - \frac1{2\alpha(2-\alpha L)}\Big( \norm{x^*-x_{k+1}}^2 - \norm{x^* - x_k}^2  \Big)\\
+\end{split}\nonumber\end{equation} 
+\begin{equation}\begin{split} 
+\Longrightarrow\,\, f(x_{k+1}) - f(x^*) \leqslant  \frac1{2\alpha(2-\alpha L)}\Big( \norm{x^*-x_k}^2 - \norm{x^* - x_{k+1}}^2  \Big)
+\end{split}\end{equation} 
+Sum inequality (4) from $k=0$ to $n-1$, we have
+\begin{equation}\begin{split}
+\sum_{k=0}^{n-1}(f(x_{k+1}) - f(x^*)) &\leqslant  \frac1{2\alpha(2-\alpha L)}(\norm{x_0-x^*}^2 - \norm{x_n-x^*}^2) \\
+&\leqslant  \frac1{2\alpha(2-\alpha L)} \norm{x_0 - x^*}^2
+\end{split}\end{equation}
+Because $f(x_k)$ is decreasing, 
+$$f(x_{n+1}) - f(x^*)\leqslant \frac1{2n\alpha(2-\alpha L)}\norm{x_0 - x^*}^2 = o(\frac1n).$$
+
+\subsection{}
+%TODO: analyse strongly convex case
+
+\section{}
+\subsection{}
+There are infinite solutions, because for underdetermined (\textit{i.e.} $n<d$) case like this, there is either no solution or infinite solutions.
+% TODO: finish problem 2
+
+\section{}
+Given symmetric positive definite matrix $A$, if for a set of vectors $\{p_k\}$ such that
+$$p_i^TAp_j=0,\,\,\text{if}\,\,i\neq j,$$
+then we define
+$$P = \begin{bmatrix} p_1, & p_2, & \dots ,& p_l\end{bmatrix} $$
+and
+$$\Sigma = P^TAP = \begin{bmatrix} \sigma_1 \\ & \sigma_2 \\ & & \ddots \\ & & & \sigma_l \end{bmatrix}\succ0, $$
+in which $\sigma_i = p_iAp_i > 0$ because $A$ is positive definite.\\[0.4cm]
+We can prove the theorem by contradiction: if $\{p_k\}$ is linearly dependent, \textit{i.e.} $\exists x \neq 0$ such that $Px = \sum_{i=1}^lx_ip_i=0$, then, on one hand, 
+\begin{equation} 
+x^T\Sigma x = x^TP^TAPx = (Px)^TA(Px) = 0;
+\nonumber\end{equation} 
+on the other, since $\Sigma$ is positive definite, 
+$$x^T\Sigma x > 0,$$
+which contradicts the equation above. Hence we've shown that $\{p_k\}$ can only be linearly independent if they're conjugate with respect to symmetric possitive definte matrix $A$.
+
+\section{}
+\textbf{Lemma}: if $A$ is symmetric, then any polynomial of $A$ is also symmetric.\\[0.4cm]
+\textit{Proof}: \\[0.3cm]
+Suppose $A$ is an $n\times n$ symmetric matrix, then
+\begin{equation}\begin{split}
+(A^k)_{ij} &=\sum_{x_1=1}^n \sum_{x_2=1}^n\cdots\sum_{x_{k-1}=1}^nA_{ix_1}A_{x_1x_2}\cdots A_{x_{k-1}j}\\
+&=\sum_{x_1=1}^n \sum_{x_2=1}^n\cdots\sum_{x_{k-1}=1}^nA_{x_1i}A_{x_2x_1}\cdots A_{jx_{k-1}}\\
+&=(A^k)){ji}.
+\end{split}\nonumber\end{equation} 
+And clearly the sum of symmetric matrices is also symmetric; and a polynomial of $A$ to the $k$th power is a sum of $k+1$ symmetric matrices, which is symmetric.\\[0,4cm]
+\end{document}
