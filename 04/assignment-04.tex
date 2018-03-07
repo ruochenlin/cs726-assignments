@@ -18,8 +18,8 @@ Rearrange equation (1) we have:
 \begin{equation}\begin{split}\norm{\nabla f(x_k)}^2\leqslant \frac2{\alpha(2-\alpha L)}[f(x_k) - f(x_{k+1})]. \end{split}\end{equation} 
 Sum both sides of equation (2) from 0 to n, we have
 \begin{equation}\begin{split}
-\sum_{k=0}^{n} \norm{\nabla f(x_k)}^2 &\leqslant \frac2{\alpha(2-\alpha L)}[f(x_0) - f(x_{k+1})]\\
-&\leqslant \frac2{\alpha(2-\alpha L)} [f(x-0) - f(x^*)] \\
+\sum_{k=0}^{n} \norm{\nabla f(x_k)}^2 &\leqslant \frac2{\alpha(2-\alpha L)}[f(x_0) - f(x_{n+1})]\\
+&\leqslant \frac2{\alpha(2-\alpha L)} [f(x_0) - f(x^*)] \\
 \Rightarrow \min_{k = 0,\cdots, n}\norm{\nabla f(x_k)} &\leqslant \sqrt{\frac{2(f(x_0) - f(x^*))}{\alpha(n+1)(2-\alpha L)}},
 \end{split}\end{equation}  
 thus preserving the $\frac1{\sqrt{n}}$ convergence rate; note that if we plug $\alpha = \frac1L$ into the inequality above, we recover the results for steepest descent in the manuscript.
@@ -27,12 +27,12 @@ thus preserving the $\frac1{\sqrt{n}}$ convergence rate; note that if we plug $\
 \subsection{Convex case}
 If $f(x)$ is convex, then we have 
 \begin{equation}\begin{split}
-f(x*)&\geqslant f(x_k)+\nabla f(x_k)^T(x^*-x_k) \\ 
+f(x^*)&\geqslant f(x_k)+\nabla f(x_k)^T(x^*-x_k) \\ 
 \Rightarrow f(x_k) &\leqslant f(x^*) - \nabla f(x_k)^T (x^* - x_k).
 \end{split}\nonumber\end{equation} 
 Plug this into equation (1) we have 
 \begin{equation}\begin{split} 
-f(x_{k+1}) &\leqslant f(x^*) - \nabla f(x_k)^T(x^*-x_K) - \frac{\alpha(2-\alpha L)}2\norm{\nabla f(x_k)}^2 \\
+f(x_{k+1}) &\leqslant f(x^*) - \nabla f(x_k)^T(x^*-x_k) - \frac{\alpha(2-\alpha L)}2\norm{\nabla f(x_k)}^2 \\
 &=f(x^*) - \frac{\alpha(2-\alpha L)}2\nabla f(x_k)^T[\frac2{\alpha(2-\alpha L)}(x^*-x_k)+\nabla f(x_k)] \\
 &=f(x^*) - \frac{\alpha(2-\alpha L)}2\Big(\norm{\nabla f(x_k) +\frac{x^*-x_k}{\alpha(2-\alpha L)}}^2 - \norm{\frac{x^*-x_k}{\alpha(2-\alpha L)}}^2\Big) \\
 &=f(x^*) - \frac1{2\alpha(2-\alpha L)}\Big( \norm{\alpha(2-\alpha L)\nabla f(x_k) + x^* - x_k}^2 - \norm{x^* - x_k}^2  \Big) \\
@@ -48,7 +48,7 @@ Sum inequality (4) from $k=0$ to $n-1$, we have
 &\leqslant  \frac1{2\alpha(2-\alpha L)} \norm{x_0 - x^*}^2
 \end{split}\end{equation}
 Because $f(x_k)$ is decreasing, 
-$$f(x_{n+1}) - f(x^*)\leqslant \frac1{2n\alpha(2-\alpha L)}\norm{x_0 - x^*}^2 = o(\frac1n).$$
+$$f(x_{n}) - f(x^*)\leqslant \frac1{2n\alpha(2-\alpha L)}\norm{x_0 - x^*}^2 = o(\frac1n).$$
 
 \subsection{}
 %TODO: analyse strongly convex case
@@ -65,7 +65,7 @@ then we define
 $$P = \begin{bmatrix} p_1, & p_2, & \dots ,& p_l\end{bmatrix} $$
 and
 $$\Sigma = P^TAP = \begin{bmatrix} \sigma_1 \\ & \sigma_2 \\ & & \ddots \\ & & & \sigma_l \end{bmatrix}\succ0, $$
-in which $\sigma_i = p_iAp_i > 0$ because $A$ is positive definite.\\[0.4cm]
+in which $\sigma_i = p_i^TAp_i > 0$ because $A$ is positive definite.\\[0.4cm]
 We can prove the theorem by contradiction: if $\{p_k\}$ is linearly dependent, \textit{i.e.} $\exists x \neq 0$ such that $Px = \sum_{i=1}^lx_ip_i=0$, then, on one hand, 
 \begin{equation} 
 x^T\Sigma x = x^TP^TAPx = (Px)^TA(Px) = 0;
@@ -76,7 +76,7 @@ which contradicts the equation above. Hence we've shown that $\{p_k\}$ can only 
 
 \section{}
 \textbf{Lemma}: if $A$ is symmetric, then any polynomial of $A$ is also symmetric.\\[0.4cm]
-\textit{Proof}: \\[0.3cm]
+\textit{Proof}: 
 Suppose $A$ is an $n\times n$ symmetric matrix, then
 \begin{equation}\begin{split}
 (A^k)_{ij} &=\sum_{x_1=1}^n \sum_{x_2=1}^n\cdots\sum_{x_{k-1}=1}^nA_{ix_1}A_{x_1x_2}\cdots A_{x_{k-1}j}\\
@@ -94,4 +94,29 @@ With the result from the textbook that $P_k(A)v_i=P_k(\lambda_i)v_i$, we have:
 \end{split}\nonumber\end{equation} 
 Hence $(v_i,\lambda_i(1+\lambda_iP_k(\lambda_i))^2)$ is an eigenpair of $[I+P_k(A)A]^TA[I+P_k(A)A]$, given that $(v_i,\lambda_i)$ is one for $A$.
 
+\section{}
+For the given problem, the solution is 
+$$x^* = \begin{bmatrix}1-\frac1{n+1} \\ 1-\frac2{n+1} \\ \vdots \\ 1-\frac n{n+1}\end{bmatrix},$$
+and $x_k$ can have non-zero entries only in the first $k$ spots, given the starting point $x_0 = 0$.
+% TODO: prove the statement above.
+Thus
+\begin{equation}\begin{split} 
+\norm{x_0-x^*}^2 &= \norm{x^*}^2 = \sum_{j=1}^n\big(1 - \frac j{n+1} \big)^2 \\ 
+&= \sum_{j=1}^n \big( 1 - \frac{2j}{n+1} + \frac{j^2}{(n+1)^2} \big) \\
+&= n - \frac2{n+1}\sum_{j=1}^n j + \frac1{(n+1)^2}\sum_{j=1}^n j^2 \\
+&= n - \frac2{n+1}\cdot \frac{n(n+1)}2 + \frac1{(n+1)^2}\cdot \frac{(n+1)(n+2)(2n+3)}6 \\
+&= n - n + \frac{n+2}{n+1}\cdot\frac{2n+3}6 \\
+&\geqslant \frac{2n}6 = \frac{n}3
+\end{split}\nonumber\end{equation}  
+and
+\begin{equation}\begin{split} 
+\norm{x_k-x^*}^2 &\geqslant \norm{\begin{bmatrix}0, & \cdots, & 0, & 1 - \frac{k+1}{n+1}, & \cdots, 1-\frac n{n+1} \end{bmatrix}^T } \\
+&= \sum_{j=k+1}^n \big(1-\frac j{n+1} \big)^2 = \frac{\sum_{j=k+1}^n(n+1-j)^n}{(n+1)^2} \\
+&= \frac1{(n+1)^2}\big((n-k)^2+(n-k-1)^2 + \cdots + 2^2 +1^2 \big)\\
+&= \frac1{(n+1)^2}\cdot \frac{(n-k+1)(n-k+2)(2n-2k+3)}6 \\
+&\geqslant \frac1{(n+1)^2}\cdot\frac{(n-k)(n-k)(2n-2k)}6 \\
+&= \frac1{(n+1)^2}\cdot\frac{(n-k)^3}3 = \frac{(n-k)^3}{3(n+1)^2} \\
+&\geqslant \frac{(n-k)^3}{n(n+1)^2}\norm{x_0-x^*}^2,
+\end{split}\nonumber\end{equation}
+in the last step of which we invoked the inequality we proved for $\norm{x_0-x^*}^2$.
 \end{document}
