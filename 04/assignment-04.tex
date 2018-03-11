@@ -137,14 +137,14 @@ plug in the expression for $x^{(\mu)}$, we have
 % TODO: finish problem 2
 
 \section{}
-Given symmetric positive definite matrix $A$, if for a set of vectors $\{p_k\}$ such that
+Given symmetric positive definite matrix $A$, if for a set of vectors $\{p_k\}$ we have 
 $$p_i^TAp_j=0,\,\,\text{if}\,\,i\neq j,$$
 then we define
-$$P = \begin{bmatrix} p_1, & p_2, & \dots ,& p_l\end{bmatrix} $$
+$$P = \begin{bmatrix} p_0, & p_1, & \dots ,& p_l\end{bmatrix} $$
 and
-$$\Sigma = P^TAP = \begin{bmatrix} \sigma_1 \\ & \sigma_2 \\ & & \ddots \\ & & & \sigma_l \end{bmatrix}\succ0, $$
+$$\Sigma = P^TAP = \begin{bmatrix} \sigma_0 \\ & \sigma_1 \\ & & \ddots \\ & & & \sigma_l \end{bmatrix}\succ0, $$
 in which $\sigma_i = p_i^TAp_i > 0$ because $A$ is positive definite.\\[0.4cm]
-We can prove the theorem by contradiction: if $\{p_k\}$ is linearly dependent, \textit{i.e.} $\exists x \neq 0$ such that $Px = \sum_{i=1}^lx_ip_i=0$, then, on one hand, 
+We can prove the theorem by contradiction: if $\{p_k\}$ is linearly dependent, \textit{i.e.} $\exists x \neq 0$ such that $Px = \sum_{i=0}^lx_ip_i=0$, then, on one hand, 
 \begin{equation} 
 x^T\Sigma x = x^TP^TAPx = (Px)^TA(Px) = 0;
 \nonumber\end{equation} 
