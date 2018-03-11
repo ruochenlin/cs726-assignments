@@ -56,6 +56,83 @@ $$f(x_{n}) - f(x^*)\leqslant \frac1{2n\alpha(2-\alpha L)}\norm{x_0 - x^*}^2 = o(
 \section{}
 \subsection{}
 There are infinite solutions, because for underdetermined (\textit{i.e.} $n<d$) case like this, there is either no solution or infinite solutions.
+
+\subsection{}
+Instead of minimizing the function $f_0(x) = \frac1n\norm{Ax-b}^2$, we opt to minimize the function $f(x) = \norm{Ax-b}^2$ to get rid of the cumbersome coefficient $\frac1n$. Since they only differ in a factor of constant, they'll have the same convergence peoperties, the same minimizer, and even the same minimum $0$; only that the error in $f_0$ is $10$ times smaller than that of $f$:
+$$f_0(x) \leqslant \epsilon \,\,\Leftrightarrow f(x) \leqslant n\epsilon.$$
+We first note that $f(x)$ (and $f_0(x)$, of course) is convex, but not strongly convex. To prove this, we first write $f(x)$ in the form of a quadratic function:
+\begin{equation}\begin{split}
+f(x) &= x^TA^TAx -2b^TAx+b^Tb, \\
+\nabla f(x) &= 2 A^TAx-2A^Tb = 2A^T(Ax-b).
+\end{split}\nonumber\end{equation} 
+$f(x)$ is convex because 
+\begin{equation}\begin{split} 
+&f(y) - f(x) -\nabla f(x)^T(y-x) \\
+=& y^TA^TAy - 2b^TAy - x^TA^TAx + 2b^TAx \\
+&- 2x^TA^TA(y-x) + 2b^TA(y-x)\\
+=& y^TA^TAy -2x^TA^TAy + x^TA^TAx \\
+=&\norm{Ax-Ay}^2 \geqslant 0 \\
+\end{split}\nonumber\end{equation} 
+$$\Longrightarrow \,\, f(y) \geqslant f(x) +\nabla f(x)(y-x);$$
+it's not strongly convex because $A^TA$ is singular and must have $0$ as at least one of its eigenvalues: $\text{rank}(A^TA) = \text{rank}($A$) = n < d$, but $A^TA$ is a $d\times d$ matrix; in other words, $A^TA$ is positive semidefinite.\\[0.3cm]
+In order to make $f(x)$ fit into our analysis in class, we define $A' = 2A^TA$, so that $f(x) = \frac12 x^TA'x-2b^TAx+b^Tb$. Suppose the largest eigenvalue of $A'$ is $L$, and $x^*$ is a minimizer of $f$, then
+\begin{equation}\begin{split} 
+f(x_K) - f(x^*) = f(x_K) &\leqslant \frac L{2K}\norm{x_0-x^*}^2\\
+&=\frac L{2K}\norm{x^*}^2;
+\end{split}\nonumber\end{equation}
+if we require the error within $K$ steps in $f(x)$ to be smaller than $n\epsilon$, then 
+$$K \leqslant \frac L{2n\epsilon}\norm{x^*}^2.$$
+Here are some notes:
+\begin{itemize}
+\item Since $f(x)$ has infinite minimizers, our iteration does not necessarily lead to $x_k\to x^*$; however, $\norm{x^*}$ can still be used to bound our error; in fact, the error can be bounded by $\norm{x^{\dagger}}=\min_{\{x\,:\,Ax=b\}}\norm{x}$, with $x^{\dagger}$ being the minimizer of $f(x)$ that has the smallest Euclidean distance from origin.
+\item The relationship between the spectra of $A'$ and $A^TA$ is the following: $\lambda_i(A') = 2\lambda_i(A^TA)$; thus if we define $L'$ as the largest eigenvalue of $A^TA$, then we should replace the $L$s in our inequality with $2L'$.
+\item Writing $f(x)$ in its quadratic form is only of conceptual use to us; we would never want of calculate $A^TA$, which has the complexity of about $O(nd^2)$, in practice. Evaluating $f(x) = \norm{Ax-b}^2$ and $\nabla f(x) = 2A^T(Ax-b)$ each costs us $O(nd)$, and doing a exact line serch would have similar time complexity, if we alway evaluate expressions like $x^TA^TAx$ as $(Ax)^T(Ax)$. 
+\item If $n$ is small compared to $d$, then we probably can afford to evaluate the matrix product $AA^T$, which costs $O(n^2d)$, at the beginning of the program. By doing so, we can transform the problem into one with much nicer properties: Minimizing $g(t) = \norm{AA^Tt-b}^2$. Because $AA^T$ is a $n\times n$ matrix with rank $n$, it is now invertible and thus is positive definite, (instead of being positive semi-definite, as we've seen above,) making $g(t)$ strictly convex. Now that $g(t)$ is a strictly convex function, we can yield much faster convergence with descent methods: given that the condition number of $A^TA$ is $\kappa$, after $K$ iterations we would have $$g(t_K)\leqslant (1-\frac1{\kappa})^K\norm{b}^2$$
+$$\Rightarrow\,\,k \geqslant \frac{\ln\frac{n\epsilon}{\norm{b}^2}}{\ln(1-\frac1{\kappa})},$$
+if we want the error in $g(t)$ to be smaller than $n\epsilon$. Finally, we can get the corresponding minimizer in $x$-space with 
+$$x = A^Tt.$$ The solution we get from this algorithm is also the $x^{\dagger}$ we mentioned above, namely the solution that's closest to origin. 
+\end{itemize}
+
+\subsection{}
+\begin{equation}\begin{split} 
+l_{\mu}(x) &= \frac1n\norm{Ax-b}^2+\mu\norm{x}^2,\\
+\nabla l_{\mu}(x) &= \frac2n A^T(Ax-b) + 2\mu x = (\frac2n A^TA + \mu I)x - \frac2n A^Tb.
+\end{split}\nonumber\end{equation}	
+At the minimizer of $l_{\mu}$, we have 
+\begin{equation}\begin{split}
+\nabla l_{\mu}(x^{(\mu)}) &= 0 \\
+\Rightarrow\,\,\big( \frac2n A^TA  +2\mu I \big)&x^{(\mu)} = \frac{2A^Tb}n,\\
+x^{(\mu)} = \big(A^TA+&n\mu I  \big)^{-1}A^Tb.
+\end{split}\nonumber\end{equation} 
+Here $A^TA+n\mu I$ is invertible because $A^TA$ is positive semidefinite, as we've shown above, and $n\mu I$ is positive definite, making the sum positive definite and thus invertible.
+
+\subsection{}
+\begin{equation}\begin{split} 
+l_{\mu}(x) & = \frac2n\norm{Ax-b}^2+\mu\norm{x}^2\\
+&=x^T(\frac1n A^TA + \mu I)x-\frac2n b^TAx+\norm{b}^2.
+\end{split}\nonumber\end{equation} 
+If we define $\tilde A = \frac1nA^TA+\mu I$, and its condition number $\tilde \kappa$, then
+\begin{equation}\begin{split} 
+l_{\mu}(x_k) - l_{\mu}(x^{\mu}) &\leqslant (1-\frac1{\tilde \kappa})^k(l_{\mu}(x_0)-l_{\mu}(x^{(\mu)}))\\
+&=(1-\frac1{\tilde \kappa})^k(\frac{\norm{b}^2}n-l_{\mu}(x^{(\mu)})).
+\end{split}\nonumber\end{equation} 
+If we desire the left-hand side of the inequality above to be no larger than $\epsilon$ after $K$ steps, then 
+\begin{equation}\begin{split} 
+(1-\frac1{\tilde\kappa})^K(&\frac{\norm{b}^2}n-l_{\mu}(x^{(\mu)}))\leqslant \epsilon\\
+K\ln(1-\frac1{\tilde\kappa})&\leqslant \ln\frac{\epsilon}{\frac{\norm{b}^2}n-l_{\mu}(x^{(\mu)})},\\
+K&\geqslant\frac{\ln\frac{\epsilon}{\frac{\norm{b}^2}n-l_{\mu}(x^{(\mu)})}}{\ln(1-\frac1{\tilde\kappa})}.
+\end{split}\nonumber\end{equation} 
+
+\subsection{}
+\begin{equation}\begin{split}
+\frac1n\norm{A\hat x-b}^2 &= l_{\mu}(\hat x)-\mu\norm{\hat x}^2 \\
+&\leqslant \epsilon+l_{\mu}(x^{(\mu)})- \mu\norm{\hat x}^2;
+\end{split}\nonumber\end{equation}
+plug in the expression for $x^{(\mu)}$, we have
+\begin{equation}\begin{split} 
+\frac1n\norm{A\hat x - b}^2 &\leqslant \epsilon +\frac1n \norm{A(A^TA+n\mu I)^{-1}A^Tb-b}^2+\mu\norm{(A^TA+n\mu I)^{-1}A^Tb}^2-\mu\norm{\hat x}^2.
+\end{split}\nonumber\end{equation} 
+
 % TODO: finish problem 2
 
 \section{}
