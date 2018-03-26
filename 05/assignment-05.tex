@@ -1,0 +1,42 @@
+\title{CS 726 Assignment 5}
+\author{Ruochen Lin}
+\documentclass[11pt]{article}
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{commath}
+\begin{document}
+\maketitle
+\section{}
+With 
+\begin{equation}\begin{split} 
+p^C &= -\frac{g^Tg}{g^TBg}g, \\
+p^B &= -B^{-1}g, \\
+\gamma &= \frac{(g^Tg)^2}{(g^TBg)(g^TB^{-1}g)}
+\end{split}\nonumber\end{equation} 
+and $\bar\gamma\in(\gamma,1]$, we can devise the following function to characterize $p$ in the three 'legs':
+\begin{equation}\begin{split} 
+\tilde p(\tau)=\left\{
+\begin{array}{rcl}
+&\tau p^C & {\tau \in (0,1]}\\
+&p^C + (\tau-1)(\tilde p^B - p^C) & {\tau \in (1,2]}\\
+&\tilde \gamma p^B + (\tau - 2) (p^B - \tilde\gamma p^B) & {\tau \in (3,4]}
+\end{array} \right.
+\end{split}\nonumber\end{equation}
+As $p$ moves along the path, $\tau$ increases from $0$ to $3$. \\[0.3cm]
+It's trivial to show that $\norm{\tilde p}$ increases with $\tau$ in the first and third segments of the path, because $\tilde p$ is simply moving from the origin to $p^C$ and from $\tilde\gamma p^B$ to $p^B$, respectively. In the second leg, if we define $\alpha = \tau - 1$ for convenience, we have 
+\begin{equation}\begin{split} 
+\frac{\partial \norm{\tilde p}^2}{\partial \alpha} &= 2\tilde p^T \frac{\partial \tilde p}{\partial\alpha}\\
+&= 2[P^C + \alpha (\tilde\gamma p^B-p^C)]^T(\tilde\gamma p^B - p^C) \\
+&=2(p^C)^T(\tilde \gamma p^B-p^C) + 2\alpha\norm{\tilde\gamma p^B - p^C}^2,
+\end{split}\nonumber\end{equation} 
+in which $2\alpha\norm{\tilde\gamma p^B - p^C}^2\geq 0$ and 
+\begin{equation}\begin{split} 
+(p^C)^T(\tilde\gamma p^B-p^C) & = -\frac{g^Tg}{g^TBg}g^T\Big( -\tilde\gamma B^{-1}g + \frac{g^Tg}{g^TBg}g \Big)\\
+&= \frac{(g^Tg)(g^TB^{-1}g)}{g^TBg}\tilde\gamma - \frac{(g^Tg)^3}{(g^TBg)^2}\\
+&> \frac{(g^Tg)(g^TB^{-1}g)}{g^TBg}\cdot \frac{(g^Tg)^2}{(g^TBg)(g^TB^{-1}g)} - \frac{(g^Tg)^3}{(g^TBg)^2}\\
+&=\frac{(g^Tg)^3}{(g^TBg)^2} - \frac{(g^Tg)^3}{(g^TBg)^2}\\
+&=0 \\
+\Rightarrow &\frac{\partial\norm{\tilde p}^2}{\partial \alpha} >0,
+\end{split}\nonumber\end{equation} 
+in the second step of which we used $\tilde \gamma > \gamma = \frac{(g^Tg)^2}{(g^TBg)(g^TB^{-1}g)}$ and the fact that both $B$ and $B^{-1}$ are positive definite. Thus, as $\alpha$ increases from 0 to 1, $p$ moves along the second segment and $\norm{p}$ keeps growing.
+\end{document}
