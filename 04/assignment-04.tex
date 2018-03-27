@@ -182,16 +182,16 @@ Thus
 \norm{x_0-x^*}^2 &= \norm{x^*}^2 = \sum_{j=1}^n\big(1 - \frac j{n+1} \big)^2 \\ 
 &= \sum_{j=1}^n \big( 1 - \frac{2j}{n+1} + \frac{j^2}{(n+1)^2} \big) \\
 &= n - \frac2{n+1}\sum_{j=1}^n j + \frac1{(n+1)^2}\sum_{j=1}^n j^2 \\
-&= n - \frac2{n+1}\cdot \frac{n(n+1)}2 + \frac1{(n+1)^2}\cdot \frac{(n+1)(n+2)(2n+3)}6 \\
-&= n - n + \frac{n+2}{n+1}\cdot\frac{2n+3}6 \\
-&\geqslant \frac{2n}6 = \frac{n}3
+&= n - \frac2{n+1}\cdot \frac{n(n+1)}2 + \frac1{(n+1)^2}\cdot \frac{n(n+1)(2n+1)}6 \\
+&= n - n + \frac{2n+1}{n+1}\cdot\frac{n}6 \\
+&\leqslant \frac{2n}6 = \frac{n}3
 \end{split}\nonumber\end{equation}  
 and
 \begin{equation}\begin{split} 
 \norm{x_k-x^*}^2 &\geqslant \norm{\begin{bmatrix}0, & \cdots, & 0, & 1 - \frac{k+1}{n+1}, & \cdots, 1-\frac n{n+1} \end{bmatrix}^T } \\
 &= \sum_{j=k+1}^n \big(1-\frac j{n+1} \big)^2 = \frac{\sum_{j=k+1}^n(n+1-j)^n}{(n+1)^2} \\
 &= \frac1{(n+1)^2}\big((n-k)^2+(n-k-1)^2 + \cdots + 2^2 +1^2 \big)\\
-&= \frac1{(n+1)^2}\cdot \frac{(n-k+1)(n-k+2)(2n-2k+3)}6 \\
+&= \frac1{(n+1)^2}\cdot \frac{(n-k)(n-k+1)(2n-2k+1)}6 \\
 &\geqslant \frac1{(n+1)^2}\cdot\frac{(n-k)(n-k)(2n-2k)}6 \\
 &= \frac1{(n+1)^2}\cdot\frac{(n-k)^3}3 = \frac{(n-k)^3}{3(n+1)^2} \\
 &\geqslant \frac{(n-k)^3}{n(n+1)^2}\norm{x_0-x^*}^2,
