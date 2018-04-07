@@ -27,4 +27,25 @@ p_1^{FR} &= p_1^{PR} = p_1^{HS} = -\nabla f_1 + \beta_1 p_0\\
 \end{split}\nonumber\end{equation} 
 The last equation is valid because $x_2$ is obtained from doing exact line search from $x_1$ along $p_1$, and it should lead to the same $x_2$s if we have the same $x_1$and $p_1$s in all algorithms. Thus we have shown that all three nonlinear CG algoithms reduces to linear CG on $f(x)$ in the first two steps. \\[0.3cm]
 In addition, if we replace all the 0s with $k-1$s in the previous analysis, and 1s with $k$s and 2s with $k+1$s, it would still be valid\footnote{When we're calculating the denominator of $\beta^{HS}_k$, although $p_k=-r_k$ is no longer valid with $k>0$, we can use $p_{k-1} = -r_{k-1} + \beta_{k-1}p_{k-2}$ and the fact that $r_{j}^Tp_{j-1},\,\,j = 1, 2, \cdots, k$ to get the same result.}; hence, we have proved that, if linear, FR, PR, and HS CG algorithms produce the same result at the ${k-1}$th iteration, their outcomes will still be the same at the $k$th step. Since our base case of $k=1$ is valid, we have proved inductively that FR, PR, and HS CG all reduce to linear CG for a quadratic function. 
+
+\section{}
+Given $H_kB_k = B_kH_k=I$ and $\rho_k = (y_k^Ts_k)^{-1}$, together with the updating equations
+\begin{equation}\begin{split} 
+H_{k+1} &= (I-\rho_k s_k y_k^T )H_k(I-\rho_ky_ks_k^T) + \rho_ks_ks_k^T,\\
+B_{k+1} &=b_k - \frac{B_ks_ks_k^TB_k}{s_k^TB_ks_k} + \rho_ky_ky_k^T,
+\end{split}\nonumber\end{equation} 
+we have 
+\begin{equation}\begin{split} 
+H_{k+1}B_{k+1} =& H_kB_k -\rho_ks_ky_k^TH_kB_k - \rho_kH_ky_ks_k^TB_k + \rho_k^2s_ky_k^TH_ky_ks_k^TB_k \\
+& +\rho_ks_ks_k^TB_k-\frac{H_kB_ks_ks_k^TB_k}{s_k^TB_ks_k} + \rho_k\frac{s_ky_k^TH_kB_ks_ks_k^TB_k}{s_k^TB_ks_k}\\
+&+\rho_k\frac{H_ky_ks_k^TB_ks_ks_k^TB_k}{s_k^TB_ks_k} -\rho_k^2\frac{s_ky_k^TH_ky_ks_k^TB_ks_ks_k^TB_k}{s_kB_ks_k}\\
+&-\rho_k\frac{s_ks_k^TB_ks_ks_k^TB_k}{s_k^TB_ks_k}+\rho_kH_ky_ky_k^T-\rho_k^2s_ky_k^TH_ky_ky_k^T \\
+&- \rho_k^2H_ky_ks_k^Ty_ky_k^T + \rho_k^3s_ky_k^TH_ky_ks_k^Ty_ky_k^T + \rho_k^2s_ks_k^Ty_ky_k^T \\
+=&I + (\rho_ks_ky_k^T - \rho_ks_ky_k^T) + (\rho_kH_ky_ks_k^TB_k-\rho_kH_ky_ks_k^TB_k) \\
+& +(\rho_ks_ks_k^TB_k - \rho_ks_ks_k^TB_k) + \Big(\frac{s_ks_k^TB_k}{s_k^TB_ks_k}-\frac{s_ks_k^TB_k}{s_k^TB_ks_k} \Big) \\
+& + (\rho_kH_ky_ky_k^T - \rho_kH_ky_ky_k^T) \\
+& + \Big( \rho_k^2(y_k^TH_ky_k)s_ky_k^T - \rho_k^2(y_k^TH_ky_k)s_ky_k^T \Big) \\
+=&I.
+\end{split}\nonumber\end{equation} 
+Thus, we have proved that $B_{k+1}$ and $H_{k+1}$ are inverses of each other, given that $B_k$ and $H_k$ are as well.
 \end{document}
