@@ -1,0 +1,30 @@
+\title{CS 726 Assignment 6}
+\author{Ruochen Lin}
+\documentclass[11pt]{article}
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{commath}
+\begin{document}
+\maketitle
+\section{}
+Without loss of generality, we write the quadratic function as $f(x) = \frac12 x^TAx - b^Tx + c$, and its gradient is $\nabla f(x) = A x - b$. It's obvious that, given the same starting point, Fletcher-Reeves CG reduces to linear CG on $f(x)$, because it simply replaced the $r_k$s in linear CG with $\nabla f_k$s.\\[0.3cm]
+In addition, if starting from the same point, the linear, FR, PR, and HS flavours of CG will all generate the same first step, with exact line search along the negative gradient direction. This is to say that 
+\begin{equation}\begin{split} 
+x_1^{FR} = x_1^{PR} &= x_1^{HS} = x_1, \\
+r_1^{FR} = r_1^{PR} = r_1^{HS} &= r_1 = \nabla f_1 = Ax_1 - b.
+\end{split}\nonumber\end{equation}
+Then, if we apply the properties of linear CG up to the first step, together with the fact that $p_0 = -r_0$we have  
+\begin{equation}\begin{split} 
+\beta^{FR}_1 &= \frac{\norm{\nabla f_1}^2}{\norm{\nabla f_0}^2} = \frac{\norm{r_1}^2}{\norm{r_0}^2} = \beta_1, \\
+\beta^{PR}_1 &= \frac{\nabla f_1^T(\nabla f_1 - \nabla f_0)}{\norm{\nabla f_0}^2} = \frac{r_1^T r_1 - r_1^T r_0)}{\norm{r_0}^2} = \frac{\norm{r_1}^2}{\norm{r_0}^2} \\
+&= \beta_1, \\
+\beta^{HS}_1 &= \frac{\nabla f_1^T(\nabla f_1 - \nabla f_0)}{(\nabla f_1 - \nabla f_0)^Tp_0} = \frac{r_1^Tr_1 - r^T_1 - r_0}{(-r_1^Tr_0 + r_0^Tr_0)} 
+= \frac{\norm{r_1}^2}{\norm{r_0}^2} \\ 
+&= \beta_1,\\
+p_1^{FR} &= p_1^{PR} = p_1^{HS} = -\nabla f_1 + \beta_1 p_0\\
+&= p_1,\\
+\Longrightarrow x_2^{FR} &= x_2^{PR} = x_2^{HS} = x_2 = x_1 + \alpha_1 p_1.
+\end{split}\nonumber\end{equation} 
+The last equation is valid because $x_2$ is obtained from doing exact line search from $x_1$ along $p_1$, and it should lead to the same $x_2$s if we have the same $x_1$and $p_1$s in all algorithms. Thus we have shown that all three nonlinear CG algoithms reduces to linear CG on $f(x)$ in the first two steps. \\[0.3cm]
+In addition, if we replace all the 0s with $k-1$s in the previous analysis, and 1s with $k$s and 2s with $k+1$s, it would still be valid\footnote{When we're calculating the denominator of $\beta^{HS}_k$, although $p_k=-r_k$ is no longer valid with $k>0$, we can use $p_{k-1} = -r_{k-1} + \beta_{k-1}p_{k-2}$ and the fact that $r_{j}^Tp_{j-1},\,\,j = 1, 2, \cdots, k$ to get the same result.}; hence, we have proved that, if linear, FR, PR, and HS CG algorithms produce the same result at the ${k-1}$th iteration, their outcomes will still be the same at the $k$th step. Since our base case of $k=1$ is valid, we have proved inductively that FR, PR, and HS CG all reduce to linear CG for a quadratic function. 
+\end{document}
