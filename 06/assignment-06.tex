@@ -16,9 +16,9 @@ r_1^{FR} = r_1^{PR} = r_1^{HS} &= r_1 = \nabla f_1 = Ax_1 - b.
 Then, if we apply the properties of linear CG up to the first step, together with the fact that $p_0 = -r_0$we have  
 \begin{equation}\begin{split} 
 \beta^{FR}_1 &= \frac{\norm{\nabla f_1}^2}{\norm{\nabla f_0}^2} = \frac{\norm{r_1}^2}{\norm{r_0}^2} = \beta_1, \\
-\beta^{PR}_1 &= \frac{\nabla f_1^T(\nabla f_1 - \nabla f_0)}{\norm{\nabla f_0}^2} = \frac{r_1^T r_1 - r_1^T r_0)}{\norm{r_0}^2} = \frac{\norm{r_1}^2}{\norm{r_0}^2} \\
+\beta^{PR}_1 &= \frac{\nabla f_1^T(\nabla f_1 - \nabla f_0)}{\norm{\nabla f_0}^2} = \frac{r_1^T r_1 - r_1^T r_0}{\norm{r_0}^2} = \frac{\norm{r_1}^2}{\norm{r_0}^2} \\
 &= \beta_1, \\
-\beta^{HS}_1 &= \frac{\nabla f_1^T(\nabla f_1 - \nabla f_0)}{(\nabla f_1 - \nabla f_0)^Tp_0} = \frac{r_1^Tr_1 - r^T_1 - r_0}{(-r_1^Tr_0 + r_0^Tr_0)} 
+\beta^{HS}_1 &= \frac{\nabla f_1^T(\nabla f_1 - \nabla f_0)}{(\nabla f_1 - \nabla f_0)^Tp_0} = \frac{r_1^Tr_1 - r^T_1 r_0}{-r_1^Tr_0 + r_0^Tr_0} 
 = \frac{\norm{r_1}^2}{\norm{r_0}^2} \\ 
 &= \beta_1,\\
 p_1^{FR} &= p_1^{PR} = p_1^{HS} = -\nabla f_1 + \beta_1 p_0\\
@@ -42,6 +42,7 @@ H_{k+1}B_{k+1} =& H_kB_k -\rho_ks_ky_k^TH_kB_k - \rho_kH_ky_ks_k^TB_k + \rho_k^2
 &-\rho_k\frac{s_ks_k^TB_ks_ks_k^TB_k}{s_k^TB_ks_k}+\rho_kH_ky_ky_k^T-\rho_k^2s_ky_k^TH_ky_ky_k^T \\
 &- \rho_k^2H_ky_ks_k^Ty_ky_k^T + \rho_k^3s_ky_k^TH_ky_ks_k^Ty_ky_k^T + \rho_k^2s_ks_k^Ty_ky_k^T \\
 =&I + (\rho_ks_ky_k^T - \rho_ks_ky_k^T) + (\rho_kH_ky_ks_k^TB_k-\rho_kH_ky_ks_k^TB_k) \\
+& + \Big(\rho_k^2(y_k^TH_ky_k)s_ks_k^TB_k - \rho_k^2(y_k^TH_ky_k)s_ks_k^TB_k \Big) \\
 & +(\rho_ks_ks_k^TB_k - \rho_ks_ks_k^TB_k) + \Big(\frac{s_ks_k^TB_k}{s_k^TB_ks_k}-\frac{s_ks_k^TB_k}{s_k^TB_ks_k} \Big) \\
 & + (\rho_kH_ky_ky_k^T - \rho_kH_ky_ky_k^T) \\
 & + \Big( \rho_k^2(y_k^TH_ky_k)s_ky_k^T - \rho_k^2(y_k^TH_ky_k)s_ky_k^T \Big) \\

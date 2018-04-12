@@ -1,12 +1,19 @@
 function [inform, x] = CG_FR(fun, x, nonCGparams)
+global numf; global numg;
+numf = 0; numg = 0;
 x.f = feval(fun, x.p, 1);
 x.g = feval(fun, x.p, 2);
 alpha_start = 1;
 p = -x.g;
 iter = 0;
 while (iter < nonCGparams.maxit) && (norm(x.g, Inf) > nonCGparams.toler * (1 + abs(x.f)))
+% 	if ~mod(iter,10)
+% 		fprintf('%d: %5.5e, %5.5e\n', iter, x.f, norm(x.g, Inf));
+% 	end
 	g_old = x.g;
+	% fprintf('%5d: ', iter + 1);
 	[x, alpha, nf, ng] = EBLS(fun, x, p, alpha_start);
+	% fprintf('%5.10e\n', alpha);
 	beta = x.g' * x.g / (g_old' * g_old);
 	p = -x.g + beta * p;
 	
