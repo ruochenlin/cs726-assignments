@@ -7,12 +7,10 @@ alpha_start = 1;
 p = -x.g;
 iter = 0;
 while (iter < nonCGparams.maxit) && (norm(x.g, Inf) > nonCGparams.toler * (1 + abs(x.f)))
-	% if ~mod(iter,10)
-	% 	fprintf('%d: %5.5e, %5.5e\n', iter, x.f, norm(x.g, Inf));
-	% end
-	
 	g_old = x.g;
+	% update x using extrapolation-backtracking line search along p
 	[x, alpha, nf, ng] = EBLS(fun, x, p, alpha_start);
+	% update p
 	beta = x.g' * (x.g - g_old) / (g_old' * g_old);
 	if beta > 0
 		p = -x.g + beta * p;

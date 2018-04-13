@@ -1,11 +1,10 @@
 function [x, alpha, nf, ng] = EBLS(fun, x, d, alpha_start)
 nf = 0; ng = 0;
 % EBLS parameters
-c1 = 0.09;
-c2 = 1 - 1e-10;
+c1 = 1e-2;
+c2 = 0.3;
 max_iter = 100;
-alpha = 10.5;
-% alpha = alpha_start;
+alpha = alpha_start;
 
 L = 0;
 U = Inf;
@@ -16,15 +15,15 @@ while iter < max_iter
 	step = alpha * d;
 	f_step = feval(fun, x.p + step, 1);
 	nf = nf + 1;
-	% Check first Wolfe condition
+	% check the first Wolfe condition
 	if f_step  > x.f + c1 * x.g' * step
-		% If step is too large
+		% if step is too large
 		U = alpha;
 		alpha = (L + U) / 2;
 	else
 		g_step = feval(fun, x.p + step, 2);
 		ng = ng + 1;
-		% check second weak Wolfe condition 
+		% check the second weak Wolfe condition 
 		if g_step' * d < c2 * x.g' * d
 			% if step is too small
 			L = alpha;
@@ -52,14 +51,5 @@ else
 	x.g = feval(fun, x.p, 2);
 	ng = ng + 1;
 end
-% fprintf(' %d, iter = %5d, ', success, iter);
-%{
-fprintf('EBLS: %d steps,  %d', iter, success);
-if success
-	fprintf('\n');
-else 
-	fprintf('%5.5e, %5.5e, %5.5e\n', norm(g_original), norm(d), norm(sqrt(g_original'*d)));
-end
-%}
 
 end

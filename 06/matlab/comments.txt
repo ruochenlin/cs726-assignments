@@ -1,0 +1,188 @@
+The following is the output with the default parameters:
+	% c1 = 1e-2, c2 = 0.3, alpha_start = 1
+	run nonlinearcg
+	 
+	** Fletcher-Reeves CG on xpowsing
+	Success: 241 steps taken
+	
+	  Ending value: 1.944e-08 ; No. function evaluations: 1904; No. gradient evaluations 242
+	  Norm of ending gradient: 8.93e-06
+	
+	 
+	** PR+ CG on xpowsing
+	Success: 342 steps taken
+	
+	  Ending value: 3.522e-07 ; No. function evaluations: 5905; No. gradient evaluations 343
+	  Norm of ending gradient: 5.167e-06
+	
+	 
+	** Steepest Descent on xpowsing
+	Success: 56069 steps taken
+	
+	  Ending value: 1.115e-06 ; No. function evaluations: 425239; No. gradient evaluations 56070
+	  Norm of ending gradient: 9.963e-06
+	
+	diary off
+
+We see that, with this parameter set, FR-CG is more efficient than PRplus-CG, which in turn is much more efficient than steepest descent.
+
+By making the first Wolfe condition more stringent and loosening the second, while cutting the starting alpha by half, we get the following set of parameters that improves the performance of all three algorithms, most notably FR-CG:
+
+	% c1 = 0.2, c2 = 0.5, alpha_start = 0.5
+	run nonlinearcg
+	 
+	** Fletcher-Reeves CG on xpowsing
+	Success: 63 steps taken
+	
+	  Ending value: 1.604e-08 ; No. function evaluations: 387; No. gradient evaluations 64
+	  Norm of ending gradient: 6.494e-06
+	
+	 
+	** PR+ CG on xpowsing
+	Success: 252 steps taken
+	
+	  Ending value: 4.276e-07 ; No. function evaluations: 3573; No. gradient evaluations 254
+	  Norm of ending gradient: 8.901e-06
+	
+	 
+	** Steepest Descent on xpowsing
+	Success: 52439 steps taken
+	
+	  Ending value: 1.275e-06 ; No. function evaluations: 345271; No. gradient evaluations 52440
+	  Norm of ending gradient: 9.991e-06
+	
+	diary off
+
+The following set of parameters dramatically improves the efficiency of PRplus-CG and SD, at the cost of slowing down FR-CG:
+
+	% c1 = 0.2, c2 = 0.9, alpha_start = 5
+	run nonlinearcg
+	 
+	** Fletcher-Reeves CG on xpowsing
+	Success: 286 steps taken
+	
+	  Ending value: 8.996e-08 ; No. function evaluations: 3077; No. gradient evaluations 287
+	  Norm of ending gradient: 5.051e-06
+	
+	 
+	** PR+ CG on xpowsing
+	Success: 84 steps taken
+	
+	  Ending value: 1.007e-07 ; No. function evaluations: 1162; No. gradient evaluations 85
+	  Norm of ending gradient: 3.931e-06
+	
+	 
+	** Steepest Descent on xpowsing
+	Success: 3243 steps taken
+	
+	  Ending value: 1.155e-06 ; No. function evaluations: 30554; No. gradient evaluations 3244
+	  Norm of ending gradient: 9.994e-06
+	
+	diary off
+
+By setting c2 only slightly larger than c1, all three algorithms seems to perform efficiently:
+
+	% c1 = 0.2, c2 = 0.2 + 1e-10, alpha_start = 5
+	run nonlinearcg
+	 
+	** Fletcher-Reeves CG on xpowsing
+	Success: 82 steps taken
+	
+	  Ending value: 2.366e-07 ; No. function evaluations: 787; No. gradient evaluations 84
+	  Norm of ending gradient: 7.628e-06
+	
+	 
+	** PR+ CG on xpowsing
+	Success: 84 steps taken
+	
+	  Ending value: 1.007e-07 ; No. function evaluations: 1162; No. gradient evaluations 85
+	  Norm of ending gradient: 3.931e-06
+	
+	 
+	** Steepest Descent on xpowsing
+	Success: 3243 steps taken
+	
+	  Ending value: 1.155e-06 ; No. function evaluations: 30554; No. gradient evaluations 3244
+	  Norm of ending gradient: 9.994e-06
+	
+	diary off
+
+However, the nice behaviour in FR-CG ceases to exist once we set c2 larger than c1 only by 0.01:
+
+	% c1 = 0.2, c2 = 0.21, alpha_start = 5
+	run nonlinearcg
+	 
+	** Fletcher-Reeves CG on xpowsing
+	Success: 286 steps taken
+	
+	  Ending value: 8.996e-08 ; No. function evaluations: 3077; No. gradient evaluations 287
+	  Norm of ending gradient: 5.051e-06
+	
+	 
+	** PR+ CG on xpowsing
+	Success: 84 steps taken
+	
+	  Ending value: 1.007e-07 ; No. function evaluations: 1162; No. gradient evaluations 85
+	  Norm of ending gradient: 3.931e-06
+	
+	 
+	** Steepest Descent on xpowsing
+	Success: 3243 steps taken
+	
+	  Ending value: 1.155e-06 ; No. function evaluations: 30554; No. gradient evaluations 3244
+	  Norm of ending gradient: 9.994e-06
+	
+	diary off
+
+We notice that the two nonlinear CG algorithms seem to be extremely sensitive to the numerical value of alpha_start; for example, by modifying alpha_start only by 1e-8 (compared to the third experiment) we can dramatically worsen the performance of both FR-CG (286 -> 1250 iterations) and PRplus-CG (84 -> 193 iterations). Steepest descent seems to be more robust in minor variations in parameters, though.
+
+	% c1 = 0.2, c2 = 0.9, alpha_start = 5 - 1e-8
+	run nonlinearcg
+	 
+	** Fletcher-Reeves CG on xpowsing
+	Success: 1250 steps taken
+	
+	  Ending value: 5.026e-08 ; No. function evaluations: 16489; No. gradient evaluations 1251
+	  Norm of ending gradient: 8.963e-06
+	
+	 
+	** PR+ CG on xpowsing
+	Success: 193 steps taken
+	
+	  Ending value: 9.96e-08 ; No. function evaluations: 2297; No. gradient evaluations 194
+	  Norm of ending gradient: 7.584e-06
+	
+	 
+	** Steepest Descent on xpowsing
+	Success: 3243 steps taken
+	
+	  Ending value: 1.155e-06 ; No. function evaluations: 30554; No. gradient evaluations 3244
+	  Norm of ending gradient: 9.994e-06
+	
+	diary off
+
+The following are some additional observations:
+	1. In theory, weak Wolfe conditions doesn't guarantee descentness in PRplus-CG; however, we see the algorithm works out just fine, at least for this function.
+	2. It seems that the same code that minimizes the xpowsing function would have different behaviours on different machines, even if the same version of MATLAB is installed. For example, running the same code on my own Lenovo laptop with the default parameters would lead to the following output:
+
+	** Fletcher-Reeves CG on xpowsing
+	Success: 227 steps taken
+	
+	  Ending value: 4.742e-08 ; No. function evaluations: 1722; No. gradient evaluations 228
+	  Norm of ending gradient: 7.24e-06
+	
+	 
+	** PR+ CG on xpowsing
+	Success: 253 steps taken
+	
+	  Ending value: 2.942e-07 ; No. function evaluations: 4424; No. gradient evaluations 255
+	  Norm of ending gradient: 7.709e-06
+	
+	 
+	** Steepest Descent on xpowsing
+	Success: 56069 steps taken
+	
+	  Ending value: 1.115e-06 ; No. function evaluations: 425239; No. gradient evaluations 56070
+	  Norm of ending gradient: 9.963e-06
+
+which is different from what I got on the Ubuntu machines at the CS department, even though both are running MATLAB R2017b (9.3.0.713579). I suspect that this is because of the accumulation of roundoff errors, and the inherent numerical sensitiveness of the xpowsing function.
