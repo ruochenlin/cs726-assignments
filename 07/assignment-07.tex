@@ -1,0 +1,39 @@
+\title{CS 726 Assignment 7}
+\author{Ruochen Lin}
+\documentclass[11pt]{article}
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{commath}
+\begin{document}
+\maketitle
+\section{}
+
+\section{}
+$B_k$ is symmetric positive definite, so it can be diagonalized as $B_k = Q\Lambda Q^T$, with $Q$ being orthogonal and $\Lambda$ being diagonal with only positive nonzero entries. Thus, there exists $B_k^{1/2} = Q\Lambda^{1/2}Q^T$, and the same is true for $B_k^{-1}$. $\mu_k$ can be written in the following form:
+\begin{equation}\begin{split} 
+\mu_k &= \frac{(y_k^TB_k^{-1}y_k)(s_k^TB_ks_k)}{(y_k^Ts_k)^2} \\
+&= \frac{(y_k^TB_k^{-1/2})(B_k^{-1/2}y_k)(s_k^TB_k^{1/2})(B_k^{1/2}s_k)}{(y_k^Ts_k)^2}\\
+&\geq\frac{(y_k^TB_k^{-1/2}B_k^{1/2}s_k)^2}{(y_k^Ts_k)^2} \\
+&=\frac{(y_k^Ts_k)^2}{(y_k^Ts_k)^2}\\
+&=1.
+\end{split}\nonumber\end{equation} 
+
+\section{}
+\subsection{}
+Clearly $v=0$ is not the only symmetric rank one update to satisfy the secant equation, given that the dimensionality is larger than one. As long as $v^Ts_k=0$, we have 
+\begin{equation}\begin{split} 
+(B_k+ \sigma vv^T)s_k = B_ks_k = y_k.
+\end{split}\nonumber\end{equation} 
+
+\subsection{}
+If $y_k \neq B_ks_k$ and $(y_k-B_ks_k)^Ts_k=0$, then if there exists $v$ such that $(B_k+\sigma vv^T)s_k = y_k$, $\sigma=\pm1$, then we have
+\begin{equation}\begin{split} 
+\sigma(v^Ts_k)v = y_k-B_ks_k.
+\end{split}\nonumber\end{equation} 
+If $v^Ts_k=0$, then
+\begin{equation}\begin{split}
+(B_k+\sigma vv^T)s_k &= y_k \\
+\Rightarrow B_ks_k &= y_k,
+\end{split}\nonumber\end{equation} 
+which contradicts the condition $y_k \neq B_ks_k$. On the other hand, if $v^Ts_k\neq0$, then $v$ must be a multiple of $y_k-B_ks_k$, which needs to satisfy $(y_k-B_ks_k)^Ts_k=0$; this is contradictory as well. In conclusion, there is no symmetric rank one update satisfying secant equation given the conditions.
+\end{document}
