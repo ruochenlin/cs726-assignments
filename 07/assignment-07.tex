@@ -27,10 +27,25 @@ because otherwise we would have
 \norm{b_k+p_k} &= O\big(\max\{\norm{b_k},\norm{p_k}\}\big) \\
 &\geq O(\norm{b_k}), 
 \end{split}\nonumber\end{equation} 
-which contradicts our condition that $\norm{b_k+p_k} = o(\norm{b_k})$. Thus, we have
+which contradicts our condition that $\norm{b_k+p_k} = o(\norm{b_k})$.\\
+Thus, we have
 \begin{equation}\begin{split}
 \norm{p_k-p_k^N} = o(\norm{p_k}).
 \end{split}\nonumber\end{equation} 
+This has a straightforward geometric explanation: both $b_k+p_k$ and $b_k+ p_k^N$ are in an n-sphere centered at the origin with radius $o(\norm{b_k})$, and $p_k-p_k^N = (b_k+p_k) - (b_k+p_k^N)$ is a vector connecting two points in this sphere; of course the length of $p_k-p_k^N$ cannot be larger than the diameter of the n-sphere, which is also $o(\norm{b_k})$. \\[0.3cm]
+$p_k^N$ can be written as $$p_k^N = -\nabla^2f_k^{-1}B_kp_k,$$
+so, if we multiply $p_k-p_k^N$ by $-\nabla^2 f_k$ from the left, we would have 
+\begin{equation}\begin{split}
+\norm{(B_k-\nabla^2f_k)p_k} = o(\norm{p_k}).
+\end{split}\nonumber\end{equation} 
+Finally, because $\lim_{k\to\infty}x_k=x^*$, we have $\lim_{k\to\infty}\nabla^2f_k=\nabla^2f^*$, so that 
+\begin{equation}\begin{split}
+&\norm{(\nabla^2f_k-\nabla^2f^*)p_k} = o(\norm{p_k}) \\
+\Rightarrow \norm{(B_k-\nabla^2f^*)p_k} &= \norm{(B_k-\nabla^2f_k)p_k+(\nabla^2f_k-\nabla^2f^*)p_k} \\
+&\leq \norm{(B_k-\nabla^2f_k)p_k} + \norm{(\nabla^2f_k-\nabla^2f^*)p_k} \\
+&= o(\norm{p_k}).
+\end{split}\nonumber\end{equation}
+
 \section{}
 $B_k$ is symmetric positive definite, so it can be diagonalized as $B_k = Q\Lambda Q^T$, with $Q$ being orthogonal and $\Lambda$ being diagonal with only positive nonzero entries. Thus, there exists $B_k^{1/2} = Q\Lambda^{1/2}Q^T$, and the same is true for $B_k^{-1}$. $\mu_k$ can be written in the following form:
 \begin{equation}\begin{split} 
