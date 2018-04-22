@@ -18,7 +18,8 @@ function [inform, x] = BFGS(fun, x, qnparams)
 	s = x.p - pos_old;
 	y = x.g - grad_old;
 	H = (s' * y) / (y' * y) * eye(m);
-	iter = 1;
+	iter = 1; fprintf('%4d: %5.5e, %5.5e\n', iter, x.f, norm(x.g));
+
 	while norm(x.g) > qnparams.toler * (1 + abs(x.f))
 		% Update H with BFGS algorithm
 		rho = 1 / (y' * s);
@@ -32,6 +33,8 @@ function [inform, x] = BFGS(fun, x, qnparams)
 		[x, alpha] = EBLS(fun, x, p);
 		% Check if maxit has been reached
 		iter = iter + 1;
+		fprintf('%4d: %5.5e, %5.5e\n', iter, x.f, norm(x.g));
+
 		if iter >= qnparams.maxit
 			break;
 		end

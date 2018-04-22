@@ -82,3 +82,9 @@
 07/assignment-07.aux
 07/assignment-07.log
 07/assignment-07.pdf
+07/matlab/nls_resida.m
+07/matlab/nls_residb.m
+07/matlab/old_LBFGS.m
+07/matlab/testqn.m
+07/matlab/tridia.m
+07/matlab/xpowsing.m
