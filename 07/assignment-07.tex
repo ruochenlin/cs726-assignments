@@ -67,4 +67,34 @@ If $v^Ts_k=0$, then
 \Rightarrow B_ks_k &= y_k,
 \end{split}\nonumber\end{equation} 
 which contradicts the condition $y_k \neq B_ks_k$. On the other hand, if $v^Ts_k\neq0$, then $v$ must be a multiple of $y_k-B_ks_k$, which needs to satisfy $(y_k-B_ks_k)^Ts_k=0$; this is contradictory as well. In conclusion, there is no symmetric rank one update satisfying secant equation given the conditions.
+\pagebreak
+\section{}
+\subsection{}
+\begin{figure}[t]
+\centering{
+\includegraphics[width=16cm]{matlab/prob6.jpg}
+}
+\centering
+\caption{A plot of iter($m$) with different starting points.}
+\end{figure}
+Here we comment on the change of the number of iterations, with LBFGS, as a function of $m$ with different starting points. We can see from Figure 1 that $\begin{bmatrix}0 & 0 &\cdots&0 \end{bmatrix}^T $ leads to the smallest number of iterations, and the number of iterations needed oscillates a bit when $m<8$, and it flattens out when we have larger $m$s. For other starting points, it seems that the farther the starting point from the origin is, the more iterations will be needed. We also see an improvement as we increase $m$ in the region of small $m$s, and then we see an oscillating behavior. Generally, regardless of the starting point, $m=8-10$ will get us satisfactory performance.
+
+\subsection{}
+After making minor adjustments so that the nonlinear CG methods and BFGS are using the same set of parameters, EBLS script, and starting point (\texttt{ones(100,1)} and \texttt{rand(100,1)}), the following is a table of the results:
+\begin{table}[h]
+	\centering
+	\caption{Iterations needed in nonlinear CG and BFGS algorithms to achieve $\norm{\nabla f(x)}_2\leq 10^{-6}(1+\abs{f(x)})$}
+	\begin{tabular}{|c c c|} 
+	\hline 
+	Algorithm & Iter(\texttt{ones}) & Iter(\texttt{rand}) \\
+	\hline \hline
+	CG-FR & 189 & 343\\
+	\hline
+	CG-PRplus & 317 & 472\\
+	\hline
+	BFGS & 37 & 173 \\
+	\hline
+	\end{tabular}
+\end{table}
+So we see that, with uniform input, BFGS performs much better than the nonlinear CG algorithms; with random input, BFGS still performs better, but to a lesser extent.
 \end{document}

@@ -88,3 +88,8 @@
 07/matlab/testqn.m
 07/matlab/tridia.m
 07/matlab/xpowsing.m
+07/matlab/CG_FR.m
+07/matlab/CG_PRplus.m
+07/matlab/nonlinearcg.m
+07/matlab/testqn_2.m
+07/matlab/testqn_3.m
